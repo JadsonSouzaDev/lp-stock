@@ -1,9 +1,9 @@
 import { LPage } from "@/components/lp";
 import { Button } from "@/components/ui/button";
 
-export default function Dashboard() {
+export default function Metrics() {
   return (
-    <LPage title="Dashboard">
+    <LPage title="Métricas">
       <h3 className="text-2xl font-bold tracking-tight">
         You have no products
       </h3>

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -12,18 +12,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+type ThemeOption = "light" | "dark";
+
 const LModeToggle: FC = () => {
-  const setTheme = (theme: string) => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  };
+  const initialTheme =
+    typeof window !== "undefined"
+      ? (localStorage.getItem("theme") as ThemeOption) ?? "dark"
+      : "dark";
+  const [theme, setTheme] = useState<ThemeOption>(initialTheme);
 
   useEffect(() => {
-    const theme = localStorage.getItem("theme");
     if (theme) {
-      setTheme(theme);
+      document.documentElement.setAttribute("data-theme", theme);
     }
-  }, []);
+  }, [theme]);
 
   return (
     <DropdownMenu>
