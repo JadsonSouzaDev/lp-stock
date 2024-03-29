@@ -1,20 +1,15 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Button } from "@/components/ui/button";
 import { Bell, Package2 } from "lucide-react";
 import Link from "next/link";
 import { menuItems } from "../content";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 const LSidebarDesktop: FC = () => {
-  const [pathname, setPathname] = useState("");
-
-  useEffect(() => {
-    const isBrowser = typeof window !== "undefined";
-    const pathname = isBrowser ? window.location.pathname : "";
-    setPathname(pathname);
-  }, [window?.location?.pathname]);
+  const pathname = usePathname();
 
   return (
     <div className="hidden border-r bg-muted/40 md:block">

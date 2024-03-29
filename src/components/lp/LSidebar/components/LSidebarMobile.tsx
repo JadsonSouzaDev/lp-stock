@@ -1,13 +1,13 @@
 "use client";
 
+import { FC } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { CircleUser, Menu, Package2, Search } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { CircleUser, Menu, Package2, Search } from "lucide-react";
-import Link from "next/link";
-import { menuItems } from "../content";
-import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
-import { LModeToggle } from "../..";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,16 +16,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { FC, useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
+
+import { menuItems } from "../content";
+import { LModeToggle } from "../..";
 
 const LSidebarMobile: FC = () => {
-  const [pathname, setPathname] = useState("");
-
-  useEffect(() => {
-    const isBrowser = typeof window !== "undefined";
-    const pathname = isBrowser ? window.location.pathname : "";
-    setPathname(pathname);
-  }, [window?.location?.pathname]);
+  const pathname = usePathname();
 
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
