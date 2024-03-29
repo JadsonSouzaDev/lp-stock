@@ -1,12 +1,14 @@
 "use client";
 
-import { FC } from "react";
-import { Button } from "@/components/ui/button";
 import { Bell, Package2 } from "lucide-react";
 import Link from "next/link";
-import { menuItems } from "../content";
-import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { FC } from "react";
+
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+import { menuItems } from "../content";
 
 const LSidebarDesktop: FC = () => {
   const pathname = usePathname();

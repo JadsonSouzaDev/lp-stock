@@ -1,4 +1,5 @@
 import { Home, LineChart, Package, ShoppingCart, Users } from "lucide-react";
+
 import { MenuItem } from "./type";
 
 export const menuItems: MenuItem[] = [

@@ -1,13 +1,11 @@
 "use client";
 
-import { FC } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { CircleUser, Menu, Package2, Search } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FC } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,10 +14,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
-import { menuItems } from "../content";
 import { LModeToggle } from "../..";
+import { menuItems } from "../content";
 
 const LSidebarMobile: FC = () => {
   const pathname = usePathname();
