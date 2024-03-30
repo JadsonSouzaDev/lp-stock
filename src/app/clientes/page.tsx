@@ -1,16 +1,19 @@
-import { LPage } from "@/components/lp";
-import { Button } from "@/components/ui/button";
+import { LPage, LTable } from "@/components/lp";
+import { EmptyStateProps } from "@/components/lp/LTable/components/EmptyState";
 
 export default function Clients() {
+  const emptyProps: EmptyStateProps = {
+    text: {
+      singular: "cliente",
+      plural: "clientes",
+    },
+    isFiltering: false,
+    type: "male",
+  };
+
   return (
     <LPage title="Clientes">
-      <h3 className="text-2xl font-bold tracking-tight">
-        You have no products
-      </h3>
-      <p className="text-sm text-muted-foreground">
-        You can start selling as soon as you add a product.
-      </p>
-      <Button className="mt-4">Add Product</Button>
+      <LTable emptyProps={emptyProps} />
     </LPage>
   );
 }

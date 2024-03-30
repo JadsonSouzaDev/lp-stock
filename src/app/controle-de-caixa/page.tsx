@@ -1,18 +1,18 @@
 import { LPage, LTable } from "@/components/lp";
 import { EmptyStateProps } from "@/components/lp/LTable/components/EmptyState";
 
-export default function Orders() {
+export default function Financial() {
   const emptyProps: EmptyStateProps = {
     text: {
-      singular: "pedido",
-      plural: "pedidos",
+      singular: "entrada ou saída",
+      plural: "entradas ou saídas",
     },
     isFiltering: false,
-    type: "male",
+    type: "female",
   };
 
   return (
-    <LPage title="Pedidos">
+    <LPage title="Controle de caixa">
       <LTable emptyProps={emptyProps} />
     </LPage>
   );

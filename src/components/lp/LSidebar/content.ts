@@ -1,4 +1,4 @@
-import { Home, LineChart, Package, ShoppingCart, Users } from "lucide-react";
+import { Home, Package, ShoppingCart, Users, DollarSign } from "lucide-react";
 
 import { MenuItem } from "./type";
 
@@ -24,8 +24,8 @@ export const menuItems: MenuItem[] = [
     href: "/clientes",
   },
   {
-    icon: LineChart,
-    label: "Analytics",
-    href: "/metricas",
+    icon: DollarSign,
+    label: "Controle de caixa",
+    href: "/controle-de-caixa",
   },
 ];
