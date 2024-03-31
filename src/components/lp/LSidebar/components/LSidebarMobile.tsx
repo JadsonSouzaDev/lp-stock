@@ -1,10 +1,11 @@
 "use client";
 
-import { CircleUser, Menu, Package2 } from "lucide-react";
+import { CircleUser, Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
 
+import { Logo, LogoText } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,7 +15,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
@@ -43,8 +43,8 @@ const LSidebarMobile: FC<LSidebarMobileProps> = ({ title }) => {
               href="#"
               className="flex items-center gap-2 text-lg font-semibold"
             >
-              <Package2 className="h-6 w-6" />
-              <span>Livraria Paraíba</span>
+              <Logo className="h-6 w-6" />
+              <LogoText className="h-6 w-16" />
             </Link>
 
             {menuItems.map((item) => {
