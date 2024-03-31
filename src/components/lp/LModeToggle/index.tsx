@@ -21,6 +21,11 @@ const LModeToggle: FC = () => {
       : "dark";
   const [theme, setTheme] = useState<ThemeOption>(initialTheme);
 
+  const onChangeTheme = (theme: ThemeOption) => {
+    setTheme(theme);
+    localStorage.setItem("theme", theme);
+  };
+
   useEffect(() => {
     if (theme) {
       document.documentElement.setAttribute("data-theme", theme);
@@ -37,10 +42,10 @@ const LModeToggle: FC = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem onClick={() => onChangeTheme("light")}>
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem onClick={() => onChangeTheme("dark")}>
           Dark
         </DropdownMenuItem>
       </DropdownMenuContent>
