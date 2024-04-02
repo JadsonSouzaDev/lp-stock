@@ -14,6 +14,7 @@ export default function Orders() {
   return (
     <LPage title="Pedidos">
       <LTable
+        visibility={{}}
         emptyProps={emptyProps}
         columns={[]}
         data={[]}

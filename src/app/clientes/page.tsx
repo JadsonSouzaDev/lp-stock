@@ -24,6 +24,7 @@ export default function Clients() {
             placeholder: "Pesquise pelo nome...",
           },
         ]}
+        visibility={{}}
       />
     </LPage>
   );

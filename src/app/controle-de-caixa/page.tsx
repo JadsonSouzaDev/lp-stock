@@ -14,6 +14,7 @@ export default function Financial() {
   return (
     <LPage title="Controle de caixa">
       <LTable
+        visibility={{}}
         emptyProps={emptyProps}
         columns={[]}
         data={[]}

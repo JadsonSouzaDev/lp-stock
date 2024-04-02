@@ -14,6 +14,7 @@ export default function Dashboard() {
   return (
     <LPage title="Dashboard">
       <LTable
+        visibility={{}}
         emptyProps={emptyProps}
         columns={[]}
         data={[]}
