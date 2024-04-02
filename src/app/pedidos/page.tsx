@@ -13,7 +13,18 @@ export default function Orders() {
 
   return (
     <LPage title="Pedidos">
-      <LTable emptyProps={emptyProps} />
+      <LTable
+        emptyProps={emptyProps}
+        columns={[]}
+        data={[]}
+        filters={[
+          {
+            accessorKey: "name",
+            label: "Nome",
+            placeholder: "Pesquise pelo nome...",
+          },
+        ]}
+      />
     </LPage>
   );
 }

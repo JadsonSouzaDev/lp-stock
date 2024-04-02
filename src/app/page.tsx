@@ -13,7 +13,18 @@ export default function Dashboard() {
 
   return (
     <LPage title="Dashboard">
-      <LTable emptyProps={emptyProps} />
+      <LTable
+        emptyProps={emptyProps}
+        columns={[]}
+        data={[]}
+        filters={[
+          {
+            accessorKey: "name",
+            label: "Nome",
+            placeholder: "Pesquise pelo nome...",
+          },
+        ]}
+      />
     </LPage>
   );
 }

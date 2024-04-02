@@ -11,7 +11,7 @@ export type EmptyStateProps = {
 const EmptyState: FC<EmptyStateProps> = ({ text, isFiltering, type }) => {
   return (
     <>
-      <h3 className="text-2xl font-bold tracking-tight">
+      <h3 className="text-lg font-bold tracking-tight">
         Não há {text.plural}{" "}
         {isFiltering
           ? "para esse filtro"
@@ -23,7 +23,9 @@ const EmptyState: FC<EmptyStateProps> = ({ text, isFiltering, type }) => {
         Você pode adicionar {type === "male" ? "um" : "uma"} {text.singular}{" "}
         clicando no botão abaixo.
       </p>
-      <Button className="mt-4">Adicionar {text.singular}</Button>
+      <Button size={"sm"} className="mt-4">
+        Adicionar {text.singular}
+      </Button>
     </>
   );
 };

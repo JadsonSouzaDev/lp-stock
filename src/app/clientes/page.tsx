@@ -13,7 +13,18 @@ export default function Clients() {
 
   return (
     <LPage title="Clientes">
-      <LTable emptyProps={emptyProps} />
+      <LTable
+        emptyProps={emptyProps}
+        columns={[]}
+        data={[]}
+        filters={[
+          {
+            accessorKey: "name",
+            label: "Nome",
+            placeholder: "Pesquise pelo nome...",
+          },
+        ]}
+      />
     </LPage>
   );
 }

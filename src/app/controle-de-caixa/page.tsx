@@ -13,7 +13,18 @@ export default function Financial() {
 
   return (
     <LPage title="Controle de caixa">
-      <LTable emptyProps={emptyProps} />
+      <LTable
+        emptyProps={emptyProps}
+        columns={[]}
+        data={[]}
+        filters={[
+          {
+            accessorKey: "name",
+            label: "Nome",
+            placeholder: "Pesquise pelo nome...",
+          },
+        ]}
+      />
     </LPage>
   );
 }
