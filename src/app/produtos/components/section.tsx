@@ -41,7 +41,8 @@ const ProductSection: FC<ProductSectionProps> = ({ data }) => {
   const onSubmit = async (product: Product) => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3000/api/products", {
+      const API_URL = process.env.API_URL;
+      const response = await fetch(`${API_URL}/products`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
