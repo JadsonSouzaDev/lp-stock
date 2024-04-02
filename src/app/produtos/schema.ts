@@ -8,4 +8,7 @@ export const keyLabel = {
   active: "Ativo",
   createdAt: "Criado em",
   updatedAt: "Atualizado em",
+  profit_per_unit: "Lucro por unidade",
+  profit_total: "Lucro total",
+  actions: "Ações",
 };

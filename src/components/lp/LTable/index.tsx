@@ -12,6 +12,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
 } from "@tanstack/react-table";
+import { Plus, PlusCircle } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -42,6 +43,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   filters: TableFilter[];
   emptyProps: EmptyStateProps;
+  visibility: VisibilityState;
 }
 
 function LTable<TData, TValue>({
@@ -49,10 +51,12 @@ function LTable<TData, TValue>({
   data,
   filters,
   emptyProps,
+  visibility,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] =
+    useState<VisibilityState>(visibility);
 
   const table = useReactTable({
     data,
@@ -77,7 +81,7 @@ function LTable<TData, TValue>({
 
   return (
     <div className="flex flex-col w-full gap-4">
-      <div className="flex items-end gap-2 w-full">
+      <div className="flex justify-between gap-2 w-full">
         {filters.map((filter) => (
           <div
             key={filter.accessorKey}
@@ -102,8 +106,19 @@ function LTable<TData, TValue>({
             />
           </div>
         ))}
-        <ShowColumns columns={table.getAllColumns()} />
+        {!!emptyProps.onCreate && (
+          <Button
+            variant="secondary"
+            onClick={() =>
+              !!emptyProps.onCreate ? emptyProps.onCreate() : null
+            }
+          >
+            <PlusCircle className="h-4 w-4 mr-2" />
+            Novo
+          </Button>
+        )}
       </div>
+      <ShowColumns columns={table.getAllColumns()} />
 
       <div className="rounded-md w-full border">
         <Table>

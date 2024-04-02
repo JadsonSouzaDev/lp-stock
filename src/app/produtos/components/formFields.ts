@@ -1,0 +1,63 @@
+import { z } from "zod";
+
+import { FormField } from "@/components/lp/LForm";
+
+export const formFields: FormField[] = [
+  {
+    label: "Nome",
+    id: "name",
+    type: "text",
+    defaultValue: "",
+    schema: z
+      .string({
+        required_error: "O nome deve ser informado",
+        invalid_type_error: "O nome deve ser informado",
+      })
+      .min(3, "O nome deve ter no mínimo 3 caracteres"),
+  },
+  {
+    label: "Preço de Compra",
+    id: "purchase_price",
+    type: "number",
+    defaultValue: 0,
+    isCurrency: true,
+    schema: z
+      .number({
+        required_error: "O preço de compra deve ser informado",
+        invalid_type_error: "O preço de compra deve ser informado",
+      })
+      .positive("O preço de compra deve ser maior que zero"),
+  },
+  {
+    label: "Preço de Venda",
+    id: "sale_price",
+    type: "number",
+    defaultValue: 0,
+    isCurrency: true,
+    schema: z
+      .number({
+        required_error: "O preço de venda deve ser informado",
+        invalid_type_error: "O preço de venda deve ser informado",
+      })
+      .positive("O preço de venda deve ser maior que zero"),
+  },
+  {
+    label: "Quantidade",
+    id: "quantity",
+    type: "number",
+    defaultValue: 1,
+    schema: z
+      .number({
+        required_error: "A quantidade de produtos deve ser informada",
+        invalid_type_error: "A quantidade de produtos deve ser informada",
+      })
+      .positive("A quantidade deve ser um maior que zero"),
+  },
+  {
+    label: "Categoria",
+    id: "category",
+    type: "text",
+    defaultValue: "",
+    schema: z.string().min(3, "A categoria deve ter no mínimo 3 caracteres"),
+  },
+];

@@ -44,6 +44,24 @@ export const columns: ColumnDef<Product>[] = [
       return <LCurrencyCell value={row.getValue("sale_price")} />;
     },
   },
+  {
+    accessorKey: "profit_per_unit",
+    header: ({ column }) => {
+      return <LSortableHeader column={column} label="Lucro por unidade" />;
+    },
+    cell: ({ row }) => {
+      return <LCurrencyCell value={row.getValue("profit_per_unit")} />;
+    },
+  },
+  {
+    accessorKey: "profit_total",
+    header: ({ column }) => {
+      return <LSortableHeader column={column} label="Lucro total" />;
+    },
+    cell: ({ row }) => {
+      return <LCurrencyCell value={row.getValue("profit_total")} />;
+    },
+  },
 
   {
     id: "actions",
