@@ -5,12 +5,11 @@ import ProductSection from "./components/section";
 async function getData(): Promise<Product[]> {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   try {
-    const response = await fetch(`${API_URL}/product`, {
-      next: { revalidate: false },
-    });
-    console.log(response.ok, response.statusText);
-    const data = await response.json();
-    return data;
+    const response = await fetch(`${API_URL}/product`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
   } catch (error) {
     console.error(`Error fetching data - ${API_URL}/products: `, error);
     throw error;
