@@ -4,7 +4,7 @@ import ProductSection from "./components/section";
 
 async function getData(): Promise<Product[]> {
   try {
-    const API_URL = process.env.API_URL;
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const response = await fetch(`${API_URL}/products`);
     const data = await response.json();
     return data;

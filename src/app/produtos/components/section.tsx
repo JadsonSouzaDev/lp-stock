@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, use, useState } from "react";
+import { FC, useState } from "react";
 
 import { LPage, LTable } from "@/components/lp";
 import LForm from "@/components/lp/LForm";
@@ -41,7 +41,8 @@ const ProductSection: FC<ProductSectionProps> = ({ data }) => {
   const onSubmit = async (product: Product) => {
     try {
       setLoading(true);
-      const API_URL = process.env.API_URL;
+      const API_URL = process.env.NEXT_PUBLIC_API_URL;
+      console.log(API_URL);
       const response = await fetch(`${API_URL}/products`, {
         method: "POST",
         headers: {
