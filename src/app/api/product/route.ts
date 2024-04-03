@@ -17,7 +17,7 @@ export async function GET() {
 export async function POST(req: Request, res: NextApiResponse) {
   try {
     const savedProduct: Product = await createProduct(
-      req.json() as unknown as Product
+      (await req.json()) as Product
     );
     return Response.json(savedProduct);
   } catch (error) {
