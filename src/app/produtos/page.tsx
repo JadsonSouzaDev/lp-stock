@@ -1,6 +1,6 @@
 import { Product } from "@/types/product";
 
-import { getProducts } from "../api/product/route";
+import { getProducts } from "../api/product/repository";
 
 import ProductSection from "./components/section";
 
