@@ -19,9 +19,14 @@ const serializeProduct = (row: any): Product => {
 };
 
 export async function GET() {
-  const { rows } = await sql`select * from product p where p.active = true`;
-  const serializableRows = rows.map(serializeProduct);
-  return Response.json(serializableRows);
+  try {
+    const { rows } = await sql`select * from product p where p.active = true`;
+    const serializableRows = rows.map(serializeProduct);
+    return Response.json(serializableRows);
+  } catch (error) {
+    console.error("Error fetching data - /product: ", error);
+    return Response.error();
+  }
 }
 
 export async function POST(req: Request) {

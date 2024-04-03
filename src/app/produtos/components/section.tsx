@@ -43,7 +43,7 @@ const ProductSection: FC<ProductSectionProps> = ({ data }) => {
       setLoading(true);
       const API_URL = process.env.NEXT_PUBLIC_API_URL;
       console.log(API_URL);
-      const response = await fetch(`${API_URL}/products`, {
+      const response = await fetch(`${API_URL}/product`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
