@@ -18,11 +18,14 @@ const serializeProduct = (row: any): Product => {
   } as Product;
 };
 
+export const getProducts = async () => {
+  const { rows } = await sql`select * from product p where p.active = true`;
+  return rows.map(serializeProduct);
+};
+
 export async function GET() {
   try {
-    const { rows } = await sql`select * from product p where p.active = true`;
-    const serializedRows = rows.map(serializeProduct);
-    console.log("serializedRows: ", serializedRows);
+    const serializedRows = getProducts();
     return Response.json(serializedRows);
   } catch (error) {
     console.error("Error fetching data - /product: ", error);
