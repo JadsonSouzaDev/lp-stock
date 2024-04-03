@@ -3,7 +3,13 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { FC, useState } from "react";
 
-import { LDeleteDialog, LModifyDialog, LPage, LTable } from "@/components/lp";
+import {
+  LDeleteDialog,
+  LDetailDialog,
+  LModifyDialog,
+  LPage,
+  LTable,
+} from "@/components/lp";
 import { EmptyStateProps } from "@/components/lp/LTable/components/EmptyState";
 import { Product } from "@/types/product";
 
@@ -104,6 +110,13 @@ const ProductSection: FC<ProductSectionProps> = ({ data: initialData }) => {
             setData
           )
         }
+      />
+
+      <LDetailDialog<Product>
+        label={"produto"}
+        open={action === "detalhes"}
+        onClose={() => clearAction()}
+        data={data.find((product) => product.id === id) as Product}
       />
     </div>
   );
