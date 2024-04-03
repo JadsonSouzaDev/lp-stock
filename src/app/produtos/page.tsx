@@ -8,6 +8,7 @@ async function getData(): Promise<Product[]> {
     const response = await fetch(`${API_URL}/product`, {
       next: { revalidate: false },
     });
+    console.log(response.ok, response.statusText);
     const data = await response.json();
     return data;
   } catch (error) {
