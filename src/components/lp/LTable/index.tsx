@@ -12,16 +12,10 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
 } from "@tanstack/react-table";
-import { Plus, PlusCircle } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -34,6 +28,7 @@ import {
 } from "@/components/ui/table";
 
 import EmptyState, { EmptyStateProps } from "./components/EmptyState";
+import Loading from "./components/Loading";
 import Pagination from "./components/Pagination";
 import ShowColumns from "./components/ShowColumns";
 import { TableFilter } from "./type";
@@ -44,6 +39,7 @@ interface DataTableProps<TData, TValue> {
   filters: TableFilter[];
   emptyProps: EmptyStateProps;
   visibility: VisibilityState;
+  loading?: boolean;
 }
 
 function LTable<TData, TValue>({
@@ -52,6 +48,7 @@ function LTable<TData, TValue>({
   filters,
   emptyProps,
   visibility,
+  loading,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -80,7 +77,7 @@ function LTable<TData, TValue>({
   }
 
   return (
-    <div className="flex flex-col w-full gap-4">
+    <div className="flex flex-col w-full gap-3">
       <div className="flex justify-between gap-2 w-full">
         {filters.map((filter) => (
           <div
@@ -140,46 +137,53 @@ function LTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="text-left">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+          {loading && (
+            <Loading columns={table.getHeaderGroups()[0].headers.length} />
+          )}
+          {!loading && (
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id} className="text-left">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    <EmptyState {...emptyProps} />
+                  </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  <EmptyState {...emptyProps} />
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
+              )}
+            </TableBody>
+          )}
         </Table>
       </div>
 
-      <div className="flex w-full items-center justify-end space-x-2">
-        <Pagination
-          total={data.length}
-          canNextPage={table.getCanNextPage()}
-          canPreviousPage={table.getCanPreviousPage()}
-          nextPage={table.nextPage}
-          previousPage={table.previousPage}
-        />
-      </div>
+      {!loading && (
+        <div className="flex w-full items-center justify-end space-x-2">
+          <Pagination
+            total={data.length}
+            canNextPage={table.getCanNextPage()}
+            canPreviousPage={table.getCanPreviousPage()}
+            nextPage={table.nextPage}
+            previousPage={table.previousPage}
+          />
+        </div>
+      )}
     </div>
   );
 }

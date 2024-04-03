@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Ubuntu as FontSans } from "next/font/google";
-
 import "./globals.css";
+import { Suspense } from "react";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
@@ -30,15 +31,19 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+        <Suspense
+          fallback={<div>Carregando essa bixiga da febe do rato...</div>}
         >
-          <main>{children}</main>
-          <Toaster />
-        </ThemeProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main>{children}</main>
+            <Toaster />
+          </ThemeProvider>
+        </Suspense>
       </body>
     </html>
   );

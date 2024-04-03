@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ComponentProps, FC } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -26,20 +26,21 @@ export type FormField = {
   schema?: z.ZodType<any, any, any>;
 };
 
-type LFormProps = {
+type LFormProps<Type> = {
   fields: FormField[];
   buttonTexts: { default: string; loading: string };
-  onSubmit: (data: any) => void;
+  onSubmit: (data: Type) => void;
   loading?: boolean;
-} & ComponentProps<"form">;
+  initialValue?: Type;
+};
 
-const LForm: FC<LFormProps> = ({
-  className,
+function LForm<Type>({
   fields,
   buttonTexts,
   onSubmit,
   loading,
-}) => {
+  initialValue = {} as Type,
+}: LFormProps<Type>) {
   const schema = z.object(
     fields.reduce((acc, field) => {
       if (field.schema) {
@@ -49,13 +50,26 @@ const LForm: FC<LFormProps> = ({
     }, {} as { [key: string]: z.ZodType<any, any, any> })
   );
 
+  const defaultValues = fields.reduce((values, field) => {
+    values[field.id] =
+      (initialValue as Record<string, any>)[field.id] || field.defaultValue;
+    values[field.id] = field.isCurrency ? +values[field.id] : values[field.id];
+    return values;
+  }, {} as Record<string, any>);
+
   const form = useForm({
     resolver: zodResolver(schema),
+    defaultValues,
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+      <form
+        onSubmit={form.handleSubmit((data: FieldValues) =>
+          onSubmit(data as Type)
+        )}
+        className="space-y-3"
+      >
         {fields.map((field) =>
           field.isCurrency ? (
             <MoneyInput
@@ -69,7 +83,7 @@ const LForm: FC<LFormProps> = ({
             <FormField
               key={field.id}
               control={form.control}
-              defaultValue={field.defaultValue}
+              //defaultValue={field.defaultValue}
               name={field.id}
               render={({ field: controlledField }) => (
                 <FormItem>
@@ -102,6 +116,6 @@ const LForm: FC<LFormProps> = ({
       </form>
     </Form>
   );
-};
+}
 
 export default LForm;

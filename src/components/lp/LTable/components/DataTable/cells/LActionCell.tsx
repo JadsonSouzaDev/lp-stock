@@ -1,4 +1,5 @@
 import { MoreHorizontal } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { FC } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -12,8 +13,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 type LAction = {
-  onClick: () => void;
+  action: string;
   label: string;
+  id: string;
 };
 
 type LActionsProps = {
@@ -21,6 +23,12 @@ type LActionsProps = {
 };
 
 const LActionsCell: FC<LActionsProps> = ({ actions }) => {
+  const router = useRouter();
+
+  const onClick = (action: LAction) => {
+    router.replace(`/produtos?acao=${action.action}&id=${action.id}`);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -36,7 +44,7 @@ const LActionsCell: FC<LActionsProps> = ({ actions }) => {
           <DropdownMenuItem
             key={action.label}
             className={action.label === "Excluir" ? "text-red-500" : ""}
-            onClick={() => action.onClick()}
+            onClick={() => onClick(action)}
           >
             {action.label}
           </DropdownMenuItem>

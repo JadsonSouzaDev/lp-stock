@@ -16,7 +16,7 @@ export const formFields: FormField[] = [
       .min(3, "O nome deve ter no mínimo 3 caracteres"),
   },
   {
-    label: "Preço de Compra",
+    label: "Preço de compra",
     id: "purchase_price",
     type: "number",
     defaultValue: 0,
@@ -24,12 +24,12 @@ export const formFields: FormField[] = [
     schema: z
       .number({
         required_error: "O preço de compra deve ser informado",
-        invalid_type_error: "O preço de compra deve ser informado",
+        invalid_type_error: "O preço de compra deve ser um montante válido",
       })
       .positive("O preço de compra deve ser maior que zero"),
   },
   {
-    label: "Preço de Venda",
+    label: "Preço de venda",
     id: "sale_price",
     type: "number",
     defaultValue: 0,

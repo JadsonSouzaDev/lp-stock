@@ -69,9 +69,9 @@ export const columns: ColumnDef<Product>[] = [
       return (
         <LActionsCell
           actions={[
-            { label: "Detalhes", onClick: () => console.log(row.original) },
-            { label: "Editar", onClick: () => console.log(row.original) },
-            { label: "Excluir", onClick: () => console.log(row.original) },
+            { label: "Detalhes", action: "detalhes", id: row.original.id },
+            { label: "Editar", action: "editar", id: row.original.id },
+            { label: "Excluir", action: "excluir", id: row.original.id },
           ]}
         />
       );

@@ -18,7 +18,8 @@ export const serializeProduct = (row: any): Product => {
 };
 
 export const getProducts = async (): Promise<Product[]> => {
-  const { rows } = await sql`select * from product p where p.active = true`;
+  const { rows } =
+    await sql`select * from product p where p.active = true order by p.createdAt desc`;
   return rows.map(serializeProduct);
 };
 
@@ -30,4 +31,27 @@ export const createProduct = async (product: Product): Promise<Product> => {
   `;
   const [row] = rows;
   return serializeProduct(row);
+};
+
+export const updateProduct = async (product: Product): Promise<Product> => {
+  const { rows } = await sql`
+    update product
+    set name = ${product.name},
+      sale_price = ${product.sale_price},
+      purchase_price = ${product.purchase_price},
+      quantity = ${product.quantity},
+      category = ${product.category}
+    where id = ${product.id}
+    returning *
+  `;
+  const [row] = rows;
+  return serializeProduct(row);
+};
+
+export const desactivateProduct = async (id: string): Promise<void> => {
+  await sql`
+    update product
+    set active = false
+    where id = ${id} and active = true
+  `;
 };
