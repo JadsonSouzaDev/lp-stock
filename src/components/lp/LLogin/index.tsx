@@ -31,6 +31,7 @@ export type LoginData = {
 
 const LLogin = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -40,6 +41,7 @@ const LLogin = () => {
   });
 
   const onSubmit: SubmitHandler<LoginData> = async (data) => {
+    setLoading(true);
     const result = await signIn("credentials", { redirect: false, ...data });
 
     if (result?.error) {
@@ -48,6 +50,7 @@ const LLogin = () => {
       const user = session?.user as { isAdmin?: boolean };
       router.push(user?.isAdmin ? "/admin/dashboard" : "/");
     }
+    setLoading(false);
   };
 
   return (
@@ -93,8 +96,12 @@ const LLogin = () => {
           </div>
         </CardContent>
         <CardFooter className="pb-6">
-          <Button className="w-full bg-amber-800" type="submit">
-            Entrar
+          <Button
+            disabled={loading}
+            className="w-full bg-amber-800"
+            type="submit"
+          >
+            {loading ? "Entrando..." : "Entrar"}
           </Button>
         </CardFooter>
       </form>

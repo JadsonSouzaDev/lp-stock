@@ -148,7 +148,7 @@ const LSignup: FC = () => {
             className="w-full bg-amber-800 hover:bg-amber-700"
             type="submit"
           >
-            Cadastrar
+            {loading ? "Cadastrando..." : "Cadastrar"}
           </Button>
         </CardFooter>
       </form>
