@@ -3,10 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Lato";
-  src: url("/fonts/Lato-Regular.ttf") format("truetype"),
-    url("/fonts/Lato-Regular.woff") format("woff"),
-    url("/fonts/Lato-Regular.woff2") format("woff2");
+  font-family: "Averta";
+  src: url("/fonts/AVERTA.OTF") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -81,7 +79,7 @@
 @layer base {
   * {
     @apply border-border;
-    font-family: "Lato", sans-serif;
+    font-family: "Averta", sans-serif;
   }
   body {
     @apply bg-background text-foreground;

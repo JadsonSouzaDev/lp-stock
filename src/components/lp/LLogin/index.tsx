@@ -99,7 +99,7 @@ const LLogin = () => {
         <CardFooter className="pb-6">
           <Button
             disabled={loading}
-            className="w-full bg-amber-800"
+            className="w-full bg-amber-800 hover:bg-amber-700"
             type="submit"
           >
             {loading ? "Entrando..." : "Entrar"}
