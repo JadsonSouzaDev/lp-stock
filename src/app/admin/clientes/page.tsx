@@ -1,4 +1,4 @@
-import { LPage, LTable } from "@/components/lp";
+import { LAdminPage, LTable } from "@/components/lp";
 import { EmptyStateProps } from "@/components/lp/LTable/components/EmptyState";
 
 export default function Clients() {
@@ -12,7 +12,7 @@ export default function Clients() {
   };
 
   return (
-    <LPage title="Clientes">
+    <LAdminPage title="Clientes">
       <LTable
         emptyProps={emptyProps}
         columns={[]}
@@ -26,6 +26,6 @@ export default function Clients() {
         ]}
         visibility={{}}
       />
-    </LPage>
+    </LAdminPage>
   );
 }

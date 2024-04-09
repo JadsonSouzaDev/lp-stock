@@ -7,7 +7,7 @@ import {
   LDeleteDialog,
   LDetailDialog,
   LModifyDialog,
-  LPage,
+  LAdminPage,
   LTable,
 } from "@/components/lp";
 import { EmptyStateProps } from "@/components/lp/LTable/components/EmptyState";
@@ -55,7 +55,7 @@ const ProductSection: FC<ProductSectionProps> = ({ data: initialData }) => {
 
   return (
     <div>
-      <LPage title="Produtos">
+      <LAdminPage title="Produtos">
         <LTable
           loading={loadingData}
           emptyProps={emptyProps}
@@ -70,7 +70,7 @@ const ProductSection: FC<ProductSectionProps> = ({ data: initialData }) => {
             },
           ]}
         />
-      </LPage>
+      </LAdminPage>
 
       <LModifyDialog<Product>
         label="produto"

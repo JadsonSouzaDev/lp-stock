@@ -1,31 +1,10 @@
-import { LPage, LTable } from "@/components/lp";
-import { EmptyStateProps } from "@/components/lp/LTable/components/EmptyState";
+import { Logo, LogoText } from "@/components/icons";
 
-export default function Dashboard() {
-  const emptyProps: EmptyStateProps = {
-    text: {
-      singular: "dashboard",
-      plural: "dashboards",
-    },
-    isFiltering: false,
-    type: "male",
-  };
-
+export default function Home() {
   return (
-    <LPage title="Dashboard">
-      <LTable
-        visibility={{}}
-        emptyProps={emptyProps}
-        columns={[]}
-        data={[]}
-        filters={[
-          {
-            accessorKey: "name",
-            label: "Nome",
-            placeholder: "Pesquise pelo nome...",
-          },
-        ]}
-      />
-    </LPage>
+    <div className="flex flex-col h-screen items-center justify-center">
+      <Logo className="w-52 h-52 animate-pulse -mb-10 duration-6000" />
+      <LogoText className="h-52 w-64 animate-pulse duration-6000" />
+    </div>
   );
 }

@@ -6,26 +6,26 @@ export const menuItems: MenuItem[] = [
   {
     icon: Home,
     label: "Dashboard",
-    href: "/",
+    href: "/admin/dashboard",
   },
   {
     icon: ShoppingCart,
     label: "Pedidos",
-    href: "/pedidos",
+    href: "/admin/pedidos",
   },
   {
     icon: Package,
     label: "Produtos",
-    href: "/produtos",
+    href: "/admin/produtos",
   },
   {
     icon: Users,
     label: "Clientes",
-    href: "/clientes",
+    href: "/admin/clientes",
   },
   {
     icon: DollarSign,
     label: "Controle de caixa",
-    href: "/controle-de-caixa",
+    href: "/admin/controle-de-caixa",
   },
 ];

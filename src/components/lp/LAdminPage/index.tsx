@@ -1,4 +1,8 @@
-import React, { FC, PropsWithChildren } from "react";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { getSession } from "next-auth/react";
+import React, { FC, PropsWithChildren, useEffect } from "react";
 
 import { LSidebar } from "..";
 
@@ -6,7 +10,21 @@ type LPageProps = {
   title: string;
 };
 
-const LPage: FC<PropsWithChildren<LPageProps>> = ({ title, children }) => {
+const LAdminPage: FC<PropsWithChildren<LPageProps>> = ({ title, children }) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      const session = await getSession();
+      const user = session?.user as { isAdmin: boolean };
+      if (!user?.isAdmin) {
+        router.push("/"); // redireciona para a página inicial se o usuário não for um administrador
+      }
+    };
+
+    checkAdmin();
+  }, [router]);
+
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <LSidebar.Desktop />
@@ -27,4 +45,4 @@ const LPage: FC<PropsWithChildren<LPageProps>> = ({ title, children }) => {
   );
 };
 
-export default LPage;
+export default LAdminPage;

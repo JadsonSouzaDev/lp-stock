@@ -1,18 +1,18 @@
-import { LPage, LTable } from "@/components/lp";
+import { LAdminPage, LTable } from "@/components/lp";
 import { EmptyStateProps } from "@/components/lp/LTable/components/EmptyState";
 
-export default function Financial() {
+export default function Dashboard() {
   const emptyProps: EmptyStateProps = {
     text: {
-      singular: "entrada ou saída",
-      plural: "entradas ou saídas",
+      singular: "dashboard",
+      plural: "dashboards",
     },
     isFiltering: false,
-    type: "female",
+    type: "male",
   };
 
   return (
-    <LPage title="Controle de caixa">
+    <LAdminPage title="Dashboard">
       <LTable
         visibility={{}}
         emptyProps={emptyProps}
@@ -26,6 +26,6 @@ export default function Financial() {
           },
         ]}
       />
-    </LPage>
+    </LAdminPage>
   );
 }

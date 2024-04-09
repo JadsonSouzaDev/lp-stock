@@ -1,7 +1,7 @@
 import { Table2 } from "lucide-react";
 import { FC } from "react";
 
-import { keyLabel } from "@/app/produtos/schema";
+import { keyLabel } from "@/app/admin/produtos/schema";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,

@@ -7,7 +7,7 @@ import { getUserByEmail, getUserById } from "./repository";
 
 const generateToken = async (user: User) => {
   const accessToken = jwt.sign(
-    { userId: user.id },
+    { userId: user.id, email: user.email, name: user.name, roles: user.roles },
     process.env.SECRET_KEY as string,
     {
       expiresIn: "1h",

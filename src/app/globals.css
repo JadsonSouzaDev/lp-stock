@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Lato";
+  src: url("/fonts/Lato-Regular.ttf") format("truetype"),
+    url("/fonts/Lato-Regular.woff") format("woff"),
+    url("/fonts/Lato-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -71,6 +81,7 @@
 @layer base {
   * {
     @apply border-border;
+    font-family: "Lato", sans-serif;
   }
   body {
     @apply bg-background text-foreground;
