@@ -3,7 +3,19 @@ import jwt from "jsonwebtoken";
 
 import { User } from "@/types/user";
 
-import { getUserByEmail, getUserById } from "./repository";
+import {
+  createUser,
+  getUserByEmail,
+  getUserById,
+  getUserByPhone,
+} from "./repository";
+
+export type UserSignup = {
+  name: string;
+  phone: string;
+  password: string;
+  email: string;
+};
 
 const generateToken = async (user: User) => {
   const accessToken = jwt.sign(
@@ -31,6 +43,24 @@ export const login = async (email: string, password: string) => {
   } else {
     throw new Error("Usuário ou senha inválidos");
   }
+};
+
+export const signup = async (userData: UserSignup) => {
+  const userByEmail = await getUserByEmail(userData.email);
+  const userByPhone = await getUserByPhone(userData.phone);
+
+  if (userByEmail || userByPhone) {
+    throw new Error("Usuário já cadastrado com esses dados");
+  }
+
+  const password = bcrypt.hashSync(userData.password, 10);
+
+  const newUser = await createUser({
+    ...userData,
+    password,
+  });
+
+  return generateToken(newUser);
 };
 
 export const acquireNewToken = async (refreshToken: string) => {

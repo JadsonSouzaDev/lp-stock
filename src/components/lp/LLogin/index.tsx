@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getSession, signIn } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -19,8 +20,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const loginSchema = z.object({
-  username: z.string().email(),
-  password: z.string().min(6),
+  username: z.string().email("Digite um e-mail válido"),
+  password: z.string().min(1, "Digite sua senha"),
 });
 
 export type LoginData = {
@@ -52,14 +53,14 @@ const LLogin = () => {
   return (
     <Card className="w-full border-none shadow-none">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CardHeader>
+        <CardHeader className="p-0 md:p-6">
           <CardTitle className="flex flex-col items-center text-amber-800">
             <Logo className="w-20 -mb-5 h-20" />
             <LogoText className="w-24 h-24" />
           </CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-4 -mt-5">
-          <div className="grid gap-2 min-w-96">
+        <CardContent className="grid gap-4 -mt-5 px-0 py-6 md:px-6">
+          <div className="grid gap-2 min-w-full md:min-w-96">
             <Label className="text-muted-foreground" htmlFor="username">
               E-mail
             </Label>
@@ -86,9 +87,9 @@ const LLogin = () => {
 
           <div className="flex gap-1 items-center justify-end">
             <p className="text-sm text-gray-500">Esqueceu sua senha?</p>
-            <a href="#" className="text-sm text-amber-800">
+            <Link href="/recuperar" className="text-sm text-amber-800">
               Recupere-a
-            </a>
+            </Link>
           </div>
         </CardContent>
         <CardFooter className="pb-6">

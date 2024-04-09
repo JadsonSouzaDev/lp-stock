@@ -8,3 +8,4 @@ export { default as LDetailDialog } from "./LDetailDialog";
 export { default as LModifyDialog } from "./LModifyDialog";
 export { default as LSession } from "./LSession";
 export { default as LLogin } from "./LLogin";
+export { default as LSignup } from "./LSignup";
