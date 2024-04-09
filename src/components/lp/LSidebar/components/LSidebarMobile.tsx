@@ -3,6 +3,7 @@
 import { CircleUser, Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 import { FC } from "react";
 
 import { Logo, LogoText } from "@/components/icons";
@@ -18,7 +19,6 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
-import { LModeToggle } from "../..";
 import { menuItems } from "../content";
 
 type LSidebarMobileProps = {
@@ -26,6 +26,8 @@ type LSidebarMobileProps = {
 };
 
 const LSidebarMobile: FC<LSidebarMobileProps> = ({ title }) => {
+  const { data: session } = useSession();
+  const username = session?.user?.name?.split(" ")[0];
   const pathname = usePathname();
 
   return (
@@ -81,12 +83,9 @@ const LSidebarMobile: FC<LSidebarMobileProps> = ({ title }) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>Olá, {username}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>Support</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Logout</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => signOut()}>Sair</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>
