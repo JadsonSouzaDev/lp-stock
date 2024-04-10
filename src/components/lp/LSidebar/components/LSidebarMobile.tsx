@@ -72,7 +72,9 @@ const LSidebarMobile: FC<LSidebarMobileProps> = ({ title }) => {
         </SheetContent>
       </Sheet>
       <div className="w-full flex-1">
-        <h1 className="text-lg font-semibold md:text-2xl">{title}</h1>
+        <h1 className="text-lg font-semibold md:text-2xl capitalize">
+          {title}
+        </h1>
       </div>
       <DropdownMenu>
         {/* <LModeToggle /> */}

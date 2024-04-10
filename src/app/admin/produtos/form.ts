@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { FormField } from "@/components/lp/LForm";
 
-export const formFields: FormField[] = [
+export const modifyFormFields: FormField[] = [
   {
     label: "Nome",
     id: "name",
@@ -14,6 +14,18 @@ export const formFields: FormField[] = [
         invalid_type_error: "O nome deve ser informado",
       })
       .min(3, "O nome deve ter no mínimo 3 caracteres"),
+  },
+  {
+    label: "Código de barras",
+    id: "barcode",
+    type: "text",
+    defaultValue: "",
+    schema: z
+      .string({
+        required_error: "O código de barras deve ser informado",
+        invalid_type_error: "O código de barras deve ser informado",
+      })
+      .min(3, "O código de barras deve ter no mínimo 3 caracteres"),
   },
   {
     label: "Preço de compra",

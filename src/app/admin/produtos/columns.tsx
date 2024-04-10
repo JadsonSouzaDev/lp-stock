@@ -15,6 +15,12 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
+    accessorKey: "barcode",
+    header: ({ column }) => {
+      return <LSortableHeader column={column} label="Código" />;
+    },
+  },
+  {
     accessorKey: "category",
     header: ({ column }) => {
       return <LSortableHeader column={column} label="Categoria" />;
@@ -68,6 +74,7 @@ export const columns: ColumnDef<Product>[] = [
     cell: ({ row }) => {
       return (
         <LActionsCell
+          hrefBase="/admin/produtos"
           actions={[
             { label: "Detalhes", action: "detalhes", id: row.original.id },
             { label: "Editar", action: "editar", id: row.original.id },

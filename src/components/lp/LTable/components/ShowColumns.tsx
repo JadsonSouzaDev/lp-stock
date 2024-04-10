@@ -1,7 +1,6 @@
 import { Table2 } from "lucide-react";
 import { FC } from "react";
 
-import { keyLabel } from "@/app/admin/produtos/schema";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -9,6 +8,8 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
+import { keyLabel } from "./keyLabel";
 
 const ShowColumns: FC<{ columns: any[] }> = ({ columns }) => {
   return (

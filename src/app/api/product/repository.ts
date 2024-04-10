@@ -6,6 +6,8 @@ export const serializeProduct = (row: any): Product => {
   return {
     id: row.id,
     name: row.name,
+    barcode: row.barcode,
+    url_image: row.url_image,
     sale_price: row.sale_price,
     purchase_price: row.purchase_price,
     quantity: row.quantity,
@@ -25,8 +27,8 @@ export const getProducts = async (): Promise<Product[]> => {
 
 export const createProduct = async (product: Product): Promise<Product> => {
   const { rows } = await sql`
-    insert into product (name, sale_price, purchase_price, quantity, category)
-    values (${product.name}, ${product.sale_price}, ${product.purchase_price}, ${product.quantity}, ${product.category})
+    insert into product (name, barcode, url_image, sale_price, purchase_price, quantity, category)
+    values (${product.name}, ${product.barcode}, ${product.url_image}, ${product.sale_price}, ${product.purchase_price}, ${product.quantity}, ${product.category})
     returning *
   `;
   const [row] = rows;
@@ -37,6 +39,8 @@ export const updateProduct = async (product: Product): Promise<Product> => {
   const { rows } = await sql`
     update product
     set name = ${product.name},
+      barcode = ${product.barcode},
+      url_image = ${product.url_image},
       sale_price = ${product.sale_price},
       purchase_price = ${product.purchase_price},
       quantity = ${product.quantity},

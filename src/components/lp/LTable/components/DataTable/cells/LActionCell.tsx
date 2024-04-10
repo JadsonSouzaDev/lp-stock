@@ -20,13 +20,14 @@ type LAction = {
 
 type LActionsProps = {
   actions: LAction[];
+  hrefBase: string;
 };
 
-const LActionsCell: FC<LActionsProps> = ({ actions }) => {
+const LActionsCell: FC<LActionsProps> = ({ actions, hrefBase }) => {
   const router = useRouter();
 
   const onClick = (action: LAction) => {
-    router.replace(`/produtos?acao=${action.action}&id=${action.id}`);
+    router.replace(`${hrefBase}?acao=${action.action}&id=${action.id}`);
   };
 
   return (

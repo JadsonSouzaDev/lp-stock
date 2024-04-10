@@ -11,4 +11,5 @@ export const keyLabel = {
   profit_per_unit: "Lucro por unidade",
   profit_total: "Lucro total",
   actions: "Ações",
+  barcode: "Código",
 };
