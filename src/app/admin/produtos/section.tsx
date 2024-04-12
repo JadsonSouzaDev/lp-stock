@@ -42,6 +42,7 @@ const ProductSection: FC<ProductSectionProps> = ({ data: initialData }) => {
         tableVisibility: {
           category: false,
           purchase_price: false,
+          profit_per_unit: false,
           profit_total: false,
         },
       }}

@@ -10,3 +10,4 @@ export { default as LSession } from "./LSession";
 export { default as LLogin } from "./LLogin";
 export { default as LSignup } from "./LSignup";
 export { default as LCrudSection } from "./LCrudSection";
+export { default as LUpload } from "./LUpload";

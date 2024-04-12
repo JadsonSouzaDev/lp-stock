@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ComponentProps, FC } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -17,12 +16,15 @@ import {
 import { Input } from "@/components/ui/input";
 import MoneyInput from "@/components/ui/money-input";
 
+import { LUpload } from "..";
+
 export type FormField = {
   label: string;
   id: string;
   type: string;
   defaultValue: string | number;
   isCurrency?: boolean;
+  isUpload?: boolean;
   schema?: z.ZodType<any, any, any>;
 };
 
@@ -89,17 +91,28 @@ function LForm<Type>({
                 <FormItem>
                   <FormLabel>{field.label}</FormLabel>
                   <FormControl>
-                    <Input
-                      {...controlledField}
-                      type={field.type}
-                      onChange={(e) => {
-                        if (field.type === "number") {
-                          controlledField.onChange(parseFloat(e.target.value));
-                        } else {
+                    {field.isUpload ? (
+                      <LUpload
+                        {...controlledField}
+                        onChange={(e) => {
                           controlledField.onChange(e.target.value);
-                        }
-                      }}
-                    />
+                        }}
+                      />
+                    ) : (
+                      <Input
+                        {...controlledField}
+                        type={field.type}
+                        onChange={(e) => {
+                          if (field.type === "number") {
+                            controlledField.onChange(
+                              parseFloat(e.target.value)
+                            );
+                          } else {
+                            controlledField.onChange(e.target.value);
+                          }
+                        }}
+                      />
+                    )}
                   </FormControl>
 
                   <FormMessage />

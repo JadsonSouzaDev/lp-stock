@@ -1,6 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import Image from "next/image";
 
 import LActionsCell from "@/components/lp/LTable/components/DataTable/cells/LActionCell";
 import LCurrencyCell from "@/components/lp/LTable/components/DataTable/cells/LCurrencyCell";
@@ -12,6 +13,27 @@ export const columns: ColumnDef<Product>[] = [
     accessorKey: "name",
     header: ({ column }) => {
       return <LSortableHeader column={column} label="Nome" />;
+    },
+  },
+  {
+    accessorKey: "url_image",
+    header: "Imagem",
+    cell: ({ row }) => {
+      const src = row.original.url_image;
+      return (
+        <div className="flex items-center justify-center">
+          {src ? (
+            <Image
+              src={src}
+              alt={row.getValue("name")}
+              width={50}
+              height={50}
+            />
+          ) : (
+            ""
+          )}
+        </div>
+      );
     },
   },
   {

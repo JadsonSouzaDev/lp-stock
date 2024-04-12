@@ -72,4 +72,12 @@ export const modifyFormFields: FormField[] = [
     defaultValue: "",
     schema: z.string().min(3, "A categoria deve ter no mínimo 3 caracteres"),
   },
+  {
+    label: "Imagem",
+    id: "url_image",
+    type: "text",
+    defaultValue: "",
+    isUpload: true,
+    schema: z.string().min(3, "A url da imagem deve ser informada"),
+  },
 ];
