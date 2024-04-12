@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, ForwardedRef } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ type UploadButtonProps = {
   urlUpload: string | undefined;
   onLoading: (loading: boolean) => void;
   loading: boolean;
+  ref: ForwardedRef<HTMLInputElement>;
 };
 
 const UploadButton: FC<UploadButtonProps> = ({
@@ -17,6 +18,7 @@ const UploadButton: FC<UploadButtonProps> = ({
   onLoading,
   loading,
   urlUpload,
+  ref,
 }) => {
   const handleFormData = async (e: ChangeEvent<HTMLInputElement>) => {
     onLoading(true);
@@ -45,6 +47,7 @@ const UploadButton: FC<UploadButtonProps> = ({
               : "Adicionar imagem"}
           </span>
           <Input
+            ref={ref}
             type="file"
             name="file"
             id="file"

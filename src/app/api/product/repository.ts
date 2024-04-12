@@ -25,6 +25,13 @@ export const getProducts = async (): Promise<Product[]> => {
   return rows.map(serializeProduct);
 };
 
+export const getNewestProducts = async (): Promise<Product[]> => {
+  const { rows } = await sql`
+    select * from product p where p.active = true order by p.createdAt desc limit 4
+  `;
+  return rows.map(serializeProduct);
+};
+
 export const createProduct = async (product: Product): Promise<Product> => {
   const { rows } = await sql`
     insert into product (name, barcode, url_image, sale_price, purchase_price, quantity, category)

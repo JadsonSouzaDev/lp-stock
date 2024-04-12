@@ -38,7 +38,7 @@ function LDetailDialog<Type>({
 
   return (
     <Dialog open={open} onOpenChange={() => onClose()}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-3xl">
         <DialogHeader>
           <DialogTitle>
             Detalhes {gender === "male" ? "do" : "da"} {label}
@@ -51,7 +51,7 @@ function LDetailDialog<Type>({
                 <span className="text-muted-foreground" key={key}>
                   {key}:
                 </span>
-                <span>{value as string}</span>
+                <p>{value as string}</p>
                 <Button
                   size="icon"
                   variant={"ghost"}

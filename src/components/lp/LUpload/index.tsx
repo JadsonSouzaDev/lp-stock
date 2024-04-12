@@ -8,7 +8,7 @@ import { InputProps } from "@/components/ui/input";
 import UploadButton from "./UploadButton";
 
 const LUpload = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, error, onChange, ...props }) => {
+  ({ className, type, error, onChange, ...props }, ref) => {
     const [loading, setLoading] = useState<boolean>(false);
     return (
       <div className={`flex items-end justify-center pb-12`}>
@@ -22,6 +22,7 @@ const LUpload = forwardRef<HTMLInputElement, InputProps>(
         )}
         <div className="absolute translate-y-12">
           <UploadButton
+            ref={ref}
             loading={loading}
             onLoading={setLoading}
             urlUpload={props.value?.toString()}
