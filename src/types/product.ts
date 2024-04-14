@@ -9,6 +9,7 @@ export type Product = {
   purchase_price: number;
   profit_per_unit: number;
   profit_total: number;
+  is_promotion: boolean;
   active: boolean;
   createdAt: Date;
   updatedAt: Date;

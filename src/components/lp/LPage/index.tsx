@@ -1,68 +1,19 @@
 "use client";
 
-import { User } from "lucide-react";
+import { Search, User } from "lucide-react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
 import { FC, PropsWithChildren, useState } from "react";
 
 import { Logo, LogoText } from "@/components/icons";
-import { cn } from "@/lib/utils";
-
-const navItems = [
-  { label: "Início", href: "" },
-  { label: "Novidades", href: "#novidades" },
-  { label: "Promoções", href: "#promocoes" },
-  { label: "Categorias", href: "#categorias" },
-  { label: "Ajuda", href: "/ajuda" },
-];
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const LPage: FC<PropsWithChildren> = ({ children }) => {
   const { data, status } = useSession();
-  const [activeTab, setActiveTab] = useState("");
+  const [openSearch, setOpenSearch] = useState(false);
 
   const user = data?.user;
-
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const activeTab = navItems.find((item) => {
-      const element = document.getElementById(item.href.replace("#", ""));
-      if (element) {
-        const { top, height } = element.getBoundingClientRect();
-        return (
-          scrollPosition >= top - windowHeight / 2 &&
-          scrollPosition <= top + height - windowHeight / 2
-        );
-      }
-      return false;
-    });
-
-    if (scrollPosition < 30) setActiveTab("");
-    else setActiveTab(activeTab?.href || "");
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const handleClick = (
-    e: React.MouseEvent<HTMLLIElement, MouseEvent>,
-    href: string
-  ) => {
-    e.preventDefault();
-    if (!href) window.scrollTo({ top: 0, behavior: "smooth" });
-
-    const element = document.getElementById(href.replace("#", ""));
-    element?.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-      inline: "nearest",
-    });
-  };
 
   return (
     <main className="flex flex-col min-h-screen w-full">
@@ -73,27 +24,25 @@ const LPage: FC<PropsWithChildren> = ({ children }) => {
             <LogoText className="h-10 w-24" />
           </div>
 
-          <div className="flex items-center justify-center ">
-            <ul className="flex gap-2 text-sm">
-              {navItems.map((item) => {
-                const isActive = activeTab === item.href;
-                return (
-                  <li
-                    key={item.label}
-                    onClick={(e) => handleClick(e, item.href)}
-                    className={cn(
-                      "p-4 hover:text-amber-800 uppercase hover:font-bold h-11 cursor-pointer",
-                      {
-                        "text-amber-800 font-bold border-b-2 border-amber-800":
-                          isActive,
-                      }
-                    )}
-                  >
-                    {item.label}
-                  </li>
-                );
-              })}
-            </ul>
+          <div
+            className={`flex items-center justify-center space-x-2 ${
+              !openSearch ? "animate-pulse duration-1000" : ""
+            }`}
+          >
+            {openSearch && (
+              <Input
+                autoFocus
+                className="w-[300px]"
+                placeholder="Pesquise pelo título ou por categoria..."
+              />
+            )}
+            <Button
+              variant="ghost"
+              className="text-amber-800"
+              onClick={() => setOpenSearch(true)}
+            >
+              <Search size={22} />
+            </Button>
           </div>
 
           <div className="justify-end items-center flex pr-2">

@@ -14,7 +14,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import MoneyInput from "@/components/ui/money-input";
+import { Switch } from "@/components/ui/switch";
 
 import { LUpload } from "..";
 
@@ -25,6 +27,7 @@ export type FormField = {
   defaultValue: string | number;
   isCurrency?: boolean;
   isUpload?: boolean;
+  isSwitch?: boolean;
   schema?: z.ZodType<any, any, any>;
 };
 
@@ -89,9 +92,20 @@ function LForm<Type>({
               name={field.id}
               render={({ field: controlledField }) => (
                 <FormItem>
-                  <FormLabel>{field.label}</FormLabel>
+                  {!field.isSwitch && <FormLabel>{field.label}</FormLabel>}
                   <FormControl>
-                    {field.isUpload ? (
+                    {field.isSwitch ? (
+                      <div className="flex items-center space-x-2">
+                        <Switch
+                          {...controlledField}
+                          checked={controlledField.value}
+                          onCheckedChange={controlledField.onChange}
+                        />
+                        <FormLabel htmlFor={controlledField.name}>
+                          {field.label}
+                        </FormLabel>
+                      </div>
+                    ) : field.isUpload ? (
                       <LUpload
                         {...controlledField}
                         onChange={(e) => {

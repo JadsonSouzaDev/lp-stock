@@ -54,6 +54,17 @@ export const modifyFormFields: FormField[] = [
       .positive("O preço de venda deve ser maior que zero"),
   },
   {
+    label: "Promoção",
+    id: "is_promotion",
+    isSwitch: true,
+    type: "text",
+    defaultValue: 0,
+    schema: z.boolean({
+      required_error: "Informe se o produto está em promoção",
+      invalid_type_error: "Tipo invalido para promoção",
+    }),
+  },
+  {
     label: "Quantidade",
     id: "quantity",
     type: "number",

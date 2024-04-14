@@ -69,7 +69,12 @@ export const columns: ColumnDef<Product>[] = [
       return <LSortableHeader column={column} label="Preço de venda" />;
     },
     cell: ({ row }) => {
-      return <LCurrencyCell value={row.getValue("sale_price")} />;
+      return (
+        <LCurrencyCell
+          value={row.getValue("sale_price")}
+          isPromotion={row.original.is_promotion}
+        />
+      );
     },
   },
   {

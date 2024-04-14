@@ -12,10 +12,12 @@ export const serializeProduct = (row: any): Product => {
     purchase_price: row.purchase_price,
     quantity: row.quantity,
     category: row.category,
-    createdAt: row.createdAt,
-    updatedAt: row.updatedAt,
+    createdAt: row.createdat,
+    updatedAt: row.updatedat,
     profit_per_unit: row.sale_price - row.purchase_price,
     profit_total: (row.sale_price - row.purchase_price) * row.quantity,
+    active: row.active,
+    is_promotion: row.is_promotion,
   } as Product;
 };
 
@@ -27,15 +29,29 @@ export const getProducts = async (): Promise<Product[]> => {
 
 export const getNewestProducts = async (): Promise<Product[]> => {
   const { rows } = await sql`
-    select * from product p where p.active = true order by p.createdAt desc limit 4
+    select * from product p where p.active = true and p.is_promotion = false order by p.createdAt desc limit 5
   `;
   return rows.map(serializeProduct);
 };
 
+export const getPromotionProducts = async (): Promise<Product[]> => {
+  const { rows } = await sql`
+    select * from product p where p.active = true and p.is_promotion = true order by p.createdAt desc limit 5
+  `;
+  return rows.map(serializeProduct);
+};
+
+export const getBestCategories = async (): Promise<string[]> => {
+  const { rows } = await sql`
+    select category from product p where p.active = true group by category order by count(*) desc limit 5
+  `;
+  return rows.map((row) => row.category);
+};
+
 export const createProduct = async (product: Product): Promise<Product> => {
   const { rows } = await sql`
-    insert into product (name, barcode, url_image, sale_price, purchase_price, quantity, category)
-    values (${product.name}, ${product.barcode}, ${product.url_image}, ${product.sale_price}, ${product.purchase_price}, ${product.quantity}, ${product.category})
+    insert into product (name, barcode, url_image, sale_price, purchase_price, quantity, category, is_promotion, active)
+    values (${product.name}, ${product.barcode}, ${product.url_image}, ${product.sale_price}, ${product.purchase_price}, ${product.quantity}, ${product.category}, ${product.is_promotion}, true)
     returning *
   `;
   const [row] = rows;
@@ -51,7 +67,8 @@ export const updateProduct = async (product: Product): Promise<Product> => {
       sale_price = ${product.sale_price},
       purchase_price = ${product.purchase_price},
       quantity = ${product.quantity},
-      category = ${product.category}
+      category = ${product.category},
+      is_promotion = ${product.is_promotion}
     where id = ${product.id}
     returning *
   `;
