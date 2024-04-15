@@ -52,7 +52,7 @@ const Navbar: FC = () => {
               <div className="flex items-end justify-center gap-2 text-sm ml-3">
                 <User size={20} />
                 <span className="uppercase mb-0 pb-0">
-                  {user ? user?.name : "Entrar"}
+                  {user ? user?.name?.split(" ")[0] : "Entrar"}
                 </span>
               </div>
             </Link>
