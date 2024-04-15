@@ -1,31 +1,9 @@
-import { LAdminPage, LTable } from "@/components/lp";
-import { EmptyStateProps } from "@/components/lp/LTable/components/EmptyState";
+import { getUsers } from "@/app/api/user/repository";
+import { User } from "@/types/user";
 
-export default function Clients() {
-  const emptyProps: EmptyStateProps = {
-    text: {
-      singular: "cliente",
-      plural: "clientes",
-    },
-    isFiltering: false,
-    type: "male",
-  };
+import ClientSection from "./section";
 
-  return (
-    <LAdminPage title="Clientes">
-      <LTable
-        emptyProps={emptyProps}
-        columns={[]}
-        data={[]}
-        filters={[
-          {
-            accessorKey: "name",
-            label: "Nome",
-            placeholder: "Pesquise pelo nome...",
-          },
-        ]}
-        visibility={{}}
-      />
-    </LAdminPage>
-  );
+export default async function Clients() {
+  const data: User[] = await getUsers();
+  return <ClientSection data={data} />;
 }

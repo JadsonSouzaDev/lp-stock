@@ -36,6 +36,7 @@ export type LCrudTableProps<Type> = {
 
 export type LCrudSectionProps<Type> = {
   initialData: Type[];
+  disableCreate?: boolean;
   hrefBase: string;
   tableProps: LCrudTableProps<Type>;
   typeProps: LCrudTypeProps;

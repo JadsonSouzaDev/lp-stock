@@ -24,6 +24,7 @@ function LCrudSection<Type>({
   getItemTitle,
   onModifyItem,
   onDeleteItem,
+  disableCreate,
 }: LCrudSectionProps<Type>) {
   // States
   const [loadingModify, setLoadingModify] = useState(false);
@@ -50,9 +51,11 @@ function LCrudSection<Type>({
     text: typeProps,
     isFiltering: false,
     type: typeProps.gender,
-    onCreate: () => {
-      setCreateAction();
-    },
+    onCreate: disableCreate
+      ? undefined
+      : () => {
+          setCreateAction();
+        },
   };
 
   return (

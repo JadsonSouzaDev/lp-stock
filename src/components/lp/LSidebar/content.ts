@@ -1,17 +1,18 @@
-import { Home, Package, ShoppingCart, Users, DollarSign } from "lucide-react";
+import {
+  Package,
+  ShoppingCart,
+  Users,
+  DollarSign,
+  Megaphone,
+} from "lucide-react";
 
 import { MenuItem } from "./type";
 
 export const menuItems: MenuItem[] = [
   {
-    icon: Home,
-    label: "Dashboard",
-    href: "/admin/dashboard",
-  },
-  {
-    icon: ShoppingCart,
-    label: "Pedidos",
-    href: "/admin/pedidos",
+    icon: Megaphone,
+    label: "Campanhas",
+    href: "/admin/campanhas",
   },
   {
     icon: Package,
@@ -22,6 +23,11 @@ export const menuItems: MenuItem[] = [
     icon: Users,
     label: "Clientes",
     href: "/admin/clientes",
+  },
+  {
+    icon: ShoppingCart,
+    label: "Pedidos",
+    href: "/admin/pedidos",
   },
   {
     icon: DollarSign,
