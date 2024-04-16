@@ -25,11 +25,10 @@ const ClientSection: FC<ClientSectionProps> = ({ data: initialData }) => {
   return (
     <LCrudSection<User>
       initialData={initialData}
-      disableCreate
       hrefBase="/admin/clientes"
       getItem={getItem}
       getItemTitle={getItemTitle}
-      modifyFormFields={{ gridCols: 1, fields: modifyFormFields }}
+      modifyFormFields={{ gridCols: 3, fields: modifyFormFields }}
       onModifyItem={onModifyUser}
       onDeleteItem={onDeleteUser}
       tableProps={{

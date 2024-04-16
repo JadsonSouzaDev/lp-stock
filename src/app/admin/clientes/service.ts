@@ -55,11 +55,12 @@ export const onModifyUser = async (
       setOpenDialog(false);
       await getUsers(setLoadingData, setData);
     } else {
+      const error = (await response.json()) as { message: string };
       toast({
         variant: "alert",
-        title: "Erro!",
+        title: "Ops!",
         description:
-          response.statusText ||
+          error.message ||
           `Erro ao ${isUpdate ? "atualizar" : "criar"} o cliente ${user.name}!`,
       });
     }

@@ -51,7 +51,7 @@ function LDetailDialog<Type>({
                 <span className="text-muted-foreground" key={key}>
                   {key}:
                 </span>
-                <p>{value as string}</p>
+                <p>{value?.toString() as string}</p>
                 <Button
                   size="icon"
                   variant={"ghost"}

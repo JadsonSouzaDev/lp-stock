@@ -1,8 +1,15 @@
 import { NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
 import { User } from "@/types/user";
 
-import { createUser, getUsers, updateUser } from "./repository";
+import {
+  createUser,
+  getUserByEmail,
+  getUserByPhone,
+  getUsers,
+  updateUser,
+} from "./repository";
 
 export async function GET() {
   try {
@@ -16,22 +23,56 @@ export async function GET() {
 
 export async function POST(req: Request, res: NextApiResponse) {
   try {
-    const saveduser: User = await createUser((await req.json()) as User);
-    return Response.json(saveduser);
+    const user = (await req.json()) as User;
+    const existUserWithEmail = await getUserByEmail(user.email);
+    const existUserWithPhone = await getUserByPhone(user.phone);
+
+    if (existUserWithEmail) {
+      return NextResponse.json(
+        { message: "Já existe um usuário cadastrado com esse e-mail" },
+        { status: 400 }
+      );
+    }
+
+    if (existUserWithPhone) {
+      return NextResponse.json(
+        { message: "Já existe um usuário cadastrado com esse telefone" },
+        { status: 400 }
+      );
+    }
+
+    const saveduser: User = await createUser(user);
+    return NextResponse.json(saveduser, { status: 201 });
   } catch (error) {
     console.error("Error creating user - /user: ", error);
-    res.status(500);
-    return Response.error();
+    return NextResponse.json({ message: error }, { status: 500 });
   }
 }
 
 export async function PUT(req: Request, res: NextApiResponse) {
   try {
-    const saveduser: User = await updateUser((await req.json()) as User);
-    return Response.json(saveduser);
+    const user = (await req.json()) as User;
+    const existUserWithEmail = await getUserByEmail(user.email);
+    const existUserWithPhone = await getUserByPhone(user.phone);
+
+    if (existUserWithEmail && existUserWithEmail.id !== user.id) {
+      return NextResponse.json(
+        { message: "Já existe um usuário cadastrado com esse e-mail" },
+        { status: 400 }
+      );
+    }
+
+    if (existUserWithPhone && existUserWithPhone.id !== user.id) {
+      return NextResponse.json(
+        { message: "Já existe um usuário cadastrado com esse telefone" },
+        { status: 400 }
+      );
+    }
+
+    const saveduser: User = await updateUser(user);
+    return NextResponse.json(saveduser, { status: 200 });
   } catch (error) {
-    console.error("Error update user - /user: ", error);
-    res.status(500);
-    return Response.error();
+    console.error("Error creating user - /user: ", error);
+    return NextResponse.json({ message: error }, { status: 500 });
   }
 }
