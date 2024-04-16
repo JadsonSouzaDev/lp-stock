@@ -14,9 +14,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import MoneyInput from "@/components/ui/money-input";
 import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
 
 import { LUpload } from "..";
 
@@ -24,11 +24,13 @@ export type FormField = {
   label: string;
   id: string;
   type: string;
-  defaultValue: string | number;
+  defaultValue: string | number | boolean;
   isCurrency?: boolean;
   isUpload?: boolean;
   isSwitch?: boolean;
+  isLongText?: boolean;
   schema?: z.ZodType<any, any, any>;
+  className?: string;
 };
 
 type LFormProps<Type> = {
@@ -37,6 +39,7 @@ type LFormProps<Type> = {
   onSubmit: (data: Type) => void;
   loading?: boolean;
   initialValue?: Type;
+  gridCols?: number;
 };
 
 function LForm<Type>({
@@ -45,6 +48,7 @@ function LForm<Type>({
   onSubmit,
   loading,
   initialValue = {} as Type,
+  gridCols = 1,
 }: LFormProps<Type>) {
   const schema = z.object(
     fields.reduce((acc, field) => {
@@ -73,17 +77,18 @@ function LForm<Type>({
         onSubmit={form.handleSubmit((data: FieldValues) =>
           onSubmit(data as Type)
         )}
-        className="space-y-3"
+        className={`gap-3 grid grid-flow-row grid-cols-${gridCols} w-full justify-center items-start`}
       >
         {fields.map((field) =>
           field.isCurrency ? (
-            <MoneyInput
-              key={field.id}
-              form={form}
-              label={field.label}
-              name={field.id}
-              placeholder="R$ 0,00"
-            />
+            <div key={field.id} className={field.className}>
+              <MoneyInput
+                form={form}
+                label={field.label}
+                name={field.id}
+                placeholder="R$ 0,00"
+              />
+            </div>
           ) : (
             <FormField
               key={field.id}
@@ -91,19 +96,22 @@ function LForm<Type>({
               //defaultValue={field.defaultValue}
               name={field.id}
               render={({ field: controlledField }) => (
-                <FormItem>
+                <FormItem className={field.className}>
                   {!field.isSwitch && <FormLabel>{field.label}</FormLabel>}
                   <FormControl>
                     {field.isSwitch ? (
-                      <div className="flex items-center space-x-2">
+                      <div className="flex flex-col">
+                        <FormLabel
+                          htmlFor={controlledField.name}
+                          className="mb-6"
+                        >
+                          {field.label}
+                        </FormLabel>
                         <Switch
                           {...controlledField}
                           checked={controlledField.value}
                           onCheckedChange={controlledField.onChange}
                         />
-                        <FormLabel htmlFor={controlledField.name}>
-                          {field.label}
-                        </FormLabel>
                       </div>
                     ) : field.isUpload ? (
                       <LUpload
@@ -112,11 +120,20 @@ function LForm<Type>({
                           controlledField.onChange(e.target.value);
                         }}
                       />
+                    ) : field.isLongText ? (
+                      <Textarea
+                        {...controlledField}
+                        onChange={(e) => {
+                          controlledField.onChange(e.target.value);
+                        }}
+                        className="w-full h-32 p-2 border border-gray-300 rounded-md"
+                      />
                     ) : (
                       <Input
                         {...controlledField}
                         type={field.type}
                         onChange={(e) => {
+                          e.preventDefault();
                           if (field.type === "number") {
                             controlledField.onChange(
                               parseFloat(e.target.value)
@@ -135,7 +152,7 @@ function LForm<Type>({
             />
           )
         )}
-        <div className="flex justify-center pt-3">
+        <div className={`flex justify-center pt-3 col-span-${gridCols}`}>
           <Button disabled={loading} type="submit" className="w-full">
             {loading ? buttonTexts.loading : buttonTexts.default}
           </Button>

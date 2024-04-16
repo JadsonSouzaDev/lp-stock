@@ -40,7 +40,7 @@ export type LCrudSectionProps<Type> = {
   hrefBase: string;
   tableProps: LCrudTableProps<Type>;
   typeProps: LCrudTypeProps;
-  modifyFormFields: FormField[];
+  modifyFormFields: { gridCols: number; fields: FormField[] };
   getItem: (id: string, data: Type[]) => Type | undefined;
   getItemTitle: (id: string, data: Type[]) => string;
   onModifyItem: onModifyItemProps<Type>;

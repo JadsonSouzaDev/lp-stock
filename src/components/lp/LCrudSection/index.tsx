@@ -76,7 +76,8 @@ function LCrudSection<Type>({
         open={action === "editar" || action === "novo"}
         setOpen={clearAction}
         loading={loadingModify}
-        fields={formFields}
+        gridCols={formFields.gridCols}
+        fields={formFields.fields}
         state={getItem(id as string, data)}
         onSubmit={(formData) => {
           const oldData = getItem(id as string, data);

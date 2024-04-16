@@ -29,7 +29,7 @@ const ClientSection: FC<ClientSectionProps> = ({ data: initialData }) => {
       hrefBase="/admin/clientes"
       getItem={getItem}
       getItemTitle={getItemTitle}
-      modifyFormFields={modifyFormFields}
+      modifyFormFields={{ gridCols: 1, fields: modifyFormFields }}
       onModifyItem={onModifyUser}
       onDeleteItem={onDeleteUser}
       tableProps={{

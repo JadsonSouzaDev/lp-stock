@@ -27,7 +27,7 @@ const ProductSection: FC<ProductSectionProps> = ({ data: initialData }) => {
       hrefBase="/admin/produtos"
       getItem={getItem}
       getItemTitle={getItemTitle}
-      modifyFormFields={modifyFormFields}
+      modifyFormFields={{ gridCols: 6, fields: modifyFormFields }}
       onModifyItem={onModifyProduct}
       onDeleteItem={onDeleteProduct}
       tableProps={{
