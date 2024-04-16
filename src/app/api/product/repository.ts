@@ -1,5 +1,6 @@
 import { sql } from "@vercel/postgres";
 
+import { isUUID } from "@/lib/id";
 import { Product } from "@/types/product";
 
 export const serializeProduct = (row: any): Product => {
@@ -22,6 +23,27 @@ export const serializeProduct = (row: any): Product => {
     active: row.active,
     is_promotion: row.is_promotion,
   } as Product;
+};
+
+export const searchProducts = async (search: string): Promise<Product[]> => {
+  const { rows } = await sql`
+    select * from product p where p.active = true and p.name ilike ${`%${search}%`} order by p.createdAt desc
+  `;
+  return rows.map(serializeProduct);
+};
+
+export const getProductById = async (id: string): Promise<Product | null> => {
+  if (!isUUID(id)) {
+    return null;
+  }
+
+  const { rows } = await sql`
+    select * from product p where p.id = ${id} and p.active = true
+  `;
+  if (rows.length === 0) {
+    return null;
+  }
+  return serializeProduct(rows[0]);
 };
 
 export const getProducts = async (): Promise<Product[]> => {

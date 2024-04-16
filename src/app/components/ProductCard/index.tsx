@@ -1,5 +1,6 @@
 import { BadgePercent } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -60,10 +61,14 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
                 />
               )}
             </div>
-
-            <Button className="bg-orange-300 hover:bg-orange-200 text-amber-800 text-md">
-              Comprar
-            </Button>
+            <Link
+              href={`/produtos/${product.id}`}
+              className="flex items-center justify-center"
+            >
+              <Button className="bg-orange-300 hover:bg-orange-200 text-amber-800 text-md w-full">
+                Comprar
+              </Button>
+            </Link>
           </div>
         </div>
       </CardFooter>

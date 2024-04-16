@@ -2,17 +2,44 @@
 
 import { Heart, Search, ShoppingBasket, User } from "lucide-react";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { FC } from "react";
+import { ChangeEventHandler, FC, useState } from "react";
 
 import { Logo, LogoText } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const Navbar: FC = () => {
+const Navbar: FC = ({}) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [searchValue, setSearchValue] = useState(
+    searchParams.get("search") ?? ""
+  );
   const { data, status } = useSession();
 
   const user = data?.user;
+
+  const onSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const search = e.target.value;
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("search", search);
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const debounce = (func: Function, delay: number) => {
+    let timeoutId: NodeJS.Timeout;
+    return (...args: any[]) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(null, args);
+      }, delay);
+    };
+  };
+
+  const debouncedSearch = debounce(onSearch, 600);
 
   return (
     <nav className="px-6 w-full shadow-md justify-center flex fixed z-50 bg-gradient-to-r from-orange-300 to-orange-200 text-amber-800">
@@ -25,9 +52,14 @@ const Navbar: FC = () => {
         <div className="flex flex-1 items-center justify-center">
           <div className="flex items-center justify-center space-x-2 bg-white py-1 px-4 pr-5 rounded-xl">
             <Input
+              value={searchValue}
               autoFocus
               className="w-[300px] focus-visible:ring-transparent border-none bg-transparent"
               placeholder="Pesquise pelo título ou por categoria..."
+              onChange={(event) => {
+                setSearchValue(event.target.value);
+                debouncedSearch(event);
+              }}
             />
             <Search size={22} />
           </div>
