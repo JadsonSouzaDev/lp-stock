@@ -40,7 +40,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         </div>
       </CardContent>
       <CardFooter className="p-0">
-        <div className="flex flex-col justify-between w-full h-[190px] p-4">
+        <div className="flex flex-col justify-between w-full h-[185px] p-4">
           <div className="flex flex-col gap-1">
             <span className="leading-tight">{product.name}</span>
             <span className="leading-tight text-sm text-muted-foreground">

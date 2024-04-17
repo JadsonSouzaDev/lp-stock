@@ -2,7 +2,7 @@
 
 import { Heart, Search, ShoppingBasket, User } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { ChangeEventHandler, FC, useState } from "react";
 
@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 const Navbar: FC = ({}) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const pathname = usePathname();
 
   const [searchValue, setSearchValue] = useState(
     searchParams.get("search") ?? ""
@@ -26,7 +25,7 @@ const Navbar: FC = ({}) => {
     const search = e.target.value;
     const params = new URLSearchParams(searchParams.toString());
     params.set("search", search);
-    router.push(search ? `${pathname}?${params.toString()}` : pathname);
+    router.push(search ? `/?${params.toString()}` : "/");
   };
 
   const debounce = (func: Function, delay: number) => {

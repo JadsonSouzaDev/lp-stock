@@ -1,3 +1,5 @@
+import { revalidatePath } from "next/cache";
+
 import { getProductById } from "@/app/api/product/repository";
 
 import ProductDetail from "./components/ProductDetail";
@@ -8,7 +10,14 @@ export default async function ProductPage({
   params: { id: string };
 }) {
   const { id } = params;
-  const product = await getProductById(id);
+
+  async function getData(id: string) {
+    "use server";
+    revalidatePath(`/produtos/${id}`);
+    return getProductById(id);
+  }
+
+  const product = await getData(id);
 
   return <ProductDetail product={product} />;
 }
