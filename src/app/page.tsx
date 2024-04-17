@@ -1,3 +1,5 @@
+import { revalidatePath } from "next/cache";
+
 import { LPage } from "@/components/lp";
 import { Product } from "@/types/product";
 
@@ -5,14 +7,46 @@ import {
   getBestCategories,
   getNewestProducts,
   getPromotionProducts,
+  searchProducts,
 } from "./api/product/repository";
-import { CampaignSection, ProductSection } from "./components";
-import CategorySection from "./components/CategorySection";
+import {
+  ProductSearch,
+  CategorySection,
+  CampaignSection,
+  ProductSection,
+} from "./components";
 
-export default async function Home() {
-  const newestProducts: Product[] = await getNewestProducts();
-  const promotionProducts: Product[] = await getPromotionProducts();
-  const categories = await getBestCategories();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { search: string };
+}) {
+  const { search } = searchParams;
+
+  async function getSearchData(searchValue: string) {
+    "use server";
+    revalidatePath(`/?search=${searchValue}`);
+    return await searchProducts(searchValue);
+  }
+
+  async function getHomeData() {
+    "use server";
+    const categories = await getBestCategories();
+    const newestProducts = await getNewestProducts();
+    const promotionProducts = await getPromotionProducts();
+    revalidatePath("/");
+    return { categories, newestProducts, promotionProducts };
+  }
+
+  // Search page
+  if (search) {
+    const products = await getSearchData(search ?? "");
+    return <ProductSearch products={products} search={search} />;
+  }
+
+  // Home page
+  const { categories, newestProducts, promotionProducts } = await getHomeData();
+
   return (
     <LPage>
       <CampaignSection />
@@ -22,11 +56,13 @@ export default async function Home() {
         sectionId="novidades"
         products={newestProducts}
       />
-      <ProductSection
-        title="Promoções"
-        sectionId="promocoes"
-        products={promotionProducts}
-      />
+      {promotionProducts.length > 0 && (
+        <ProductSection
+          title="Promoções"
+          sectionId="promocoes"
+          products={promotionProducts}
+        />
+      )}
     </LPage>
   );
 }

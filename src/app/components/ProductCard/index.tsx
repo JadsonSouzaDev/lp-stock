@@ -24,7 +24,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   return (
     <Card
       key={product.id}
-      className="w-[210px] h-[380px] border-amber-800 border-opacity-25 rounded-2xl py-0 shadow-md"
+      className="w-[210px] h-[390px] border-amber-800 border-opacity-25 rounded-2xl py-0 shadow-md"
     >
       <CardContent className="pt-4 pb-4 px-0">
         <div className="flex w-full h-[170px] relative">
@@ -40,7 +40,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         </div>
       </CardContent>
       <CardFooter className="p-0">
-        <div className="flex flex-col justify-between w-full h-[175px] p-4">
+        <div className="flex flex-col justify-between w-full h-[190px] p-4">
           <div className="flex flex-col gap-1">
             <span className="leading-tight">{product.name}</span>
             <span className="leading-tight text-sm text-muted-foreground">

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FC } from "react";
 
 import { Logo } from "@/components/icons";
@@ -15,14 +16,15 @@ const CategoryCard: FC<{ index: number; title: string }> = ({
   ];
 
   return (
-    <div
-      className={`w-[160px] h-[250px] ${colors[index]} rounded-full flex items-center justify-center`}
+    <Link
+      href={`/?search=${title}`}
+      className={`w-[160px] h-[250px] ${colors[index]} rounded-full flex items-center justify-center cursor-pointer`}
     >
       <h1 className="text-white text-center text-2xl font-bold z-10 capitalize">
         {title}
       </h1>
       <Logo className="w-36 h-36 absolute opacity-10" />
-    </div>
+    </Link>
   );
 };
 

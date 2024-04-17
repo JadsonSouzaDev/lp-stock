@@ -1,4 +1,5 @@
 import { sql } from "@vercel/postgres";
+import { revalidatePath } from "next/cache";
 
 import { isUUID } from "@/lib/id";
 import { Product } from "@/types/product";
@@ -27,8 +28,9 @@ export const serializeProduct = (row: any): Product => {
 
 export const searchProducts = async (search: string): Promise<Product[]> => {
   const { rows } = await sql`
-    select * from product p where p.active = true and p.name ilike ${`%${search}%`} order by p.createdAt desc
+    select * from product p where p.active = true and p.name ilike ${`%${search}%`} or p.category ilike ${`%${search}%`} order by p.createdAt desc
   `;
+  revalidatePath("/");
   return rows.map(serializeProduct);
 };
 

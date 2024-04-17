@@ -22,7 +22,8 @@ const Footer: FC = () => {
           </div>
           <p className="mt-4 text-sm">Whatsapp: (83) 99932-8569</p>
           <p className="mt-4 text-sm">
-            Endereço: Av. Olímpio Gomes, 7, Box 13 - Centro, Monteiro - PB
+            Endereço: Av. Olímpio Gomes, 7, Mercado Público, Box 13 - Centro,
+            Monteiro - PB
           </p>
         </div>
       </div>

@@ -26,7 +26,7 @@ const Navbar: FC = ({}) => {
     const search = e.target.value;
     const params = new URLSearchParams(searchParams.toString());
     params.set("search", search);
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(search ? `${pathname}?${params.toString()}` : pathname);
   };
 
   const debounce = (func: Function, delay: number) => {
@@ -44,10 +44,10 @@ const Navbar: FC = ({}) => {
   return (
     <nav className="px-6 w-full shadow-md justify-center flex fixed z-50 bg-gradient-to-r from-orange-300 to-orange-200 text-amber-800">
       <div className="grid grid-cols-3 max-w-screen-xl w-full items-center justify-between">
-        <div className="flex flex-1 py-3 items-center gap-1">
+        <Link href="/" className="flex flex-1 py-3 items-center gap-1">
           <Logo className="w-10 h-10" />
           <LogoText className="h-10 w-24" />
-        </div>
+        </Link>
 
         <div className="flex flex-1 items-center justify-center">
           <div className="flex items-center justify-center space-x-2 bg-white py-1 px-4 pr-5 rounded-xl">
