@@ -1,5 +1,6 @@
-import { LPage } from "@/components/lp";
 import Link from "next/link";
+
+import { LPage } from "@/components/lp";
 
 export default async function NotFound() {
   return (
