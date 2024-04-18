@@ -11,4 +11,14 @@ export const routes = {
       href: "/",
     },
   ],
+  "/perfil": [
+    {
+      label: "Home",
+      href: "/",
+    },
+    {
+      label: "Perfil",
+      href: "/perfil",
+    },
+  ],
 };

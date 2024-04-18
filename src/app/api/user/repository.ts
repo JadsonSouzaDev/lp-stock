@@ -15,6 +15,11 @@ const serializeUser = (row: any): User => {
   } as User;
 };
 
+export const getProfile = async (id: string): Promise<User> => {
+  const { rows } = await sql`select * from "user" where id = ${id}`;
+  return serializeUser(rows[0]);
+};
+
 export const getUsers = async (): Promise<User[]> => {
   const { rows } =
     await sql`select * from "user" u where u.active = true and 'ADMIN' != ALL(u.roles) order by u.createdAt desc`;

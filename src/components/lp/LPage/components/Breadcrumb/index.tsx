@@ -32,9 +32,9 @@ const LBreadcrumb: FC<{ items?: LBreadcrumbItem[] }> = ({
         {items.map((item, index) => (
           <>
             {index === items.length - 1 ? (
-              <BreadcrumbPage key={index}>{item.label}</BreadcrumbPage>
+              <BreadcrumbPage>{item.label}</BreadcrumbPage>
             ) : (
-              <BreadcrumbItem key={index}>
+              <BreadcrumbItem>
                 <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
               </BreadcrumbItem>
             )}

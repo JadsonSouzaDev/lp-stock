@@ -77,7 +77,7 @@ function LForm<Type>({
         onSubmit={form.handleSubmit((data: FieldValues) =>
           onSubmit(data as Type)
         )}
-        className={`gap-3 grid grid-flow-row grid-cols-${gridCols} w-full justify-center items-start`}
+        className={`gap-3 grid grid-flow-row grid-cols-${gridCols} w-full`}
       >
         {fields.map((field) =>
           field.isCurrency ? (

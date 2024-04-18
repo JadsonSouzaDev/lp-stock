@@ -1,14 +1,15 @@
 "use client";
 
-import { Heart, Search, ShoppingBasket, User } from "lucide-react";
+import { Heart, Search, ShoppingBasket } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { ChangeEventHandler, FC, useState } from "react";
 
 import { Logo, LogoText } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
+import AuthButton from "./components/AuthButton";
 
 const Navbar: FC = ({}) => {
   const searchParams = useSearchParams();
@@ -17,9 +18,6 @@ const Navbar: FC = ({}) => {
   const [searchValue, setSearchValue] = useState(
     searchParams.get("search") ?? ""
   );
-  const { data, status } = useSession();
-
-  const user = data?.user;
 
   const onSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
     const search = e.target.value;
@@ -64,30 +62,22 @@ const Navbar: FC = ({}) => {
           </div>
         </div>
 
-        <div className="justify-end items-center flex pr-2 space-x-1">
+        <div className="justify-end items-center flex pr-2 space-x-5">
           <Button
             variant="ghost"
+            size={"icon"}
             className="hover:text-amber-700 hover:bg-transparent"
           >
             <Heart size={20} />
           </Button>
-
           <Button
+            size={"icon"}
             variant="ghost"
             className="hover:text-amber-700 hover:bg-transparent"
           >
             <ShoppingBasket size={20} />
           </Button>
-          {status !== "loading" && (
-            <Link href="/login" className="hover:text-amber-700">
-              <div className="flex items-end justify-center gap-2 text-sm ml-3">
-                <User size={20} />
-                <span className="uppercase mb-0 pb-0">
-                  {user ? user?.name?.split(" ")[0] : "Entrar"}
-                </span>
-              </div>
-            </Link>
-          )}
+          <AuthButton />
         </div>
       </div>
     </nav>
