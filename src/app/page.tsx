@@ -4,7 +4,7 @@ import { LPage } from "@/components/lp";
 import { Product } from "@/types/product";
 
 import {
-  getBestCategories,
+  getCategories,
   getNewestProducts,
   getPromotionProducts,
   searchProducts,
@@ -31,7 +31,7 @@ export default async function Home({
 
   async function getHomeData() {
     "use server";
-    const categories = await getBestCategories();
+    const categories = await getCategories();
     const newestProducts = await getNewestProducts();
     const promotionProducts = await getPromotionProducts();
     revalidatePath("/");

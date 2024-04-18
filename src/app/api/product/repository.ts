@@ -68,9 +68,9 @@ export const getPromotionProducts = async (): Promise<Product[]> => {
   return rows.map(serializeProduct);
 };
 
-export const getBestCategories = async (): Promise<string[]> => {
+export const getCategories = async (): Promise<string[]> => {
   const { rows } = await sql`
-    select category from product p where p.active = true group by category order by count(*) desc limit 5
+    select category from product p where p.active = true group by category order by count(*) desc
   `;
   return rows.map((row) => row.category);
 };

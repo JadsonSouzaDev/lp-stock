@@ -98,6 +98,7 @@ const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
                 </div>
                 <Button
                   variant="outline"
+                  disabled={quantity === product.quantity}
                   className="rounded-full h-[36px] w-[36px] p-0"
                   onClick={() => setQuantity(quantity + 1)}
                 >
