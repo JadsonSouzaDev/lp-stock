@@ -12,3 +12,4 @@ export { default as LSignup } from "./LSignup";
 export { default as LCrudSection } from "./LCrudSection";
 export { default as LUpload } from "./LUpload";
 export { default as LPage } from "./LPage";
+export { default as LFallback } from "./LFallback";

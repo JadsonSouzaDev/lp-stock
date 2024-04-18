@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Suspense } from "react";
 
-import { LSession } from "@/components/lp";
+import { LFallback, LSession } from "@/components/lp";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
@@ -21,9 +21,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={cn("min-h-screen bg-background font-sans antialiased")}>
         <LSession>
-          <Suspense
-            fallback={<div>Carregando essa bixiga da febe do rato...</div>}
-          >
+          <Suspense fallback={<LFallback />}>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
