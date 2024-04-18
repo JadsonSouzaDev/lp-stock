@@ -48,7 +48,7 @@ export default async function Home({
   const { categories, newestProducts, promotionProducts } = await getHomeData();
 
   return (
-    <LPage>
+    <LPage hideBreadcrumb>
       <CampaignSection />
       <CategorySection categories={categories} />
       <ProductSection

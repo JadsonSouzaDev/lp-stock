@@ -24,8 +24,14 @@ const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
   }
 
   return (
-    <LPage>
-      <div className="flex flex-col py-16 px-10 gap-8">
+    <LPage
+      breadcrumbItems={[
+        { label: "Home", href: "/" },
+        { label: product.category, href: `/?search=${product.category}` },
+        { label: product.name, href: `/produtos/${product.id}` },
+      ]}
+    >
+      <div className="flex flex-col pb-12 gap-8">
         <div className="flex flex-col">
           <h1 className="text-3xl text-amber-800 font-bold">{product.name}</h1>
           <span>{product.author}</span>
