@@ -1,6 +1,7 @@
 import { sql } from "@vercel/postgres";
 import bcrypt from "bcrypt";
 
+import { ProfileForm } from "@/app/perfil/components/ProfileSection/type";
 import { User } from "@/types/user";
 
 const serializeUser = (row: any): User => {
@@ -15,11 +16,31 @@ const serializeUser = (row: any): User => {
   } as User;
 };
 
+// Client methods
 export const getProfile = async (id: string): Promise<User> => {
   const { rows } = await sql`select * from "user" where id = ${id}`;
   return serializeUser(rows[0]);
 };
 
+export const updateProfile = async (
+  id: string,
+  user: ProfileForm
+): Promise<User> => {
+  const { rows } = await sql`
+    update "user" set name = ${user.name}, email = ${user.email}, phone = ${user.phone}, updatedat = now() where id = ${id} and active = true returning *`;
+  return serializeUser(rows[0]);
+};
+
+export const updatePassword = async (
+  id: string,
+  password: string
+): Promise<User> => {
+  const { rows } = await sql`
+    update "user" set password = ${password}, updatedat = now() where id = ${id} and active = true returning *`;
+  return serializeUser(rows[0]);
+};
+
+// Admin methods
 export const getUsers = async (): Promise<User[]> => {
   const { rows } =
     await sql`select * from "user" u where u.active = true and 'ADMIN' != ALL(u.roles) order by u.createdAt desc`;

@@ -77,3 +77,17 @@ export const acquireNewToken = async (refreshToken: string) => {
     throw new Error("Usuário não encontrado ou refreshToken inválido");
   }
 };
+
+export const isAuthenticated = async (req: Request) => {
+  const headers = req.headers;
+  const authorization = headers.get("Authorization");
+  const token = authorization?.split(" ")[1];
+  const decodedToken = jwt.decode(token ?? "") as { userId: string };
+
+  const userId = decodedToken?.userId;
+  if (!userId) {
+    throw new Error("Usuário não autenticado", { cause: "no_auth" });
+  }
+
+  return decodedToken;
+};

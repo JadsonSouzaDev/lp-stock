@@ -1,29 +1,40 @@
-import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
 import { User } from "@/types/user";
 
+import { isAuthenticated } from "../../auth/service";
 import { getProfile } from "../repository";
+
+import { updateProfile } from "./service";
 
 export async function GET(req: Request) {
   try {
-    const headers = req.headers;
-    const authorization = headers.get("Authorization");
-    const token = authorization?.split(" ")[1];
-    const decodedToken = jwt.decode(token ?? "") as { userId: string };
-
-    const userId = decodedToken?.userId;
-    if (!userId) {
-      return NextResponse.json(
-        { message: "Usuário não autenticado" },
-        { status: 401 }
-      );
-    }
-
-    const serializedRows: User = await getProfile(userId);
-    return NextResponse.json(serializedRows, { status: 200 });
-  } catch (error) {
+    const decodedToken = await isAuthenticated(req);
+    const user: User = await getProfile(decodedToken.userId);
+    return NextResponse.json(
+      { name: user.name, email: user.email, phone: user.phone },
+      { status: 200 }
+    );
+  } catch (error: any) {
     console.error("Error get profile - /user: ", error);
-    return NextResponse.json({ message: error }, { status: 500 });
+    return NextResponse.json(
+      { message: error },
+      { status: error.cause === "no_auth" ? 401 : 500 }
+    );
+  }
+}
+
+export async function PUT(req: Request) {
+  try {
+    const decodedToken = await isAuthenticated(req);
+    const body = await req.json();
+    await updateProfile(decodedToken.userId, body);
+    return NextResponse.json({}, { status: 200 });
+  } catch (error: any) {
+    console.error("Error update profile - /user: ", error);
+    return NextResponse.json(
+      { message: error },
+      { status: error.cause === "no_auth" ? 401 : 500 }
+    );
   }
 }

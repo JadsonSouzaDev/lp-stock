@@ -35,6 +35,10 @@ export type FormField = {
 
 type LFormProps<Type> = {
   fields: FormField[];
+  onRefine?: {
+    validate: (data: { [x: string]: any }) => boolean;
+    message: { message: string; path: string[] };
+  };
   buttonTexts: { default: string; loading: string };
   onSubmit: (data: Type) => void;
   loading?: boolean;
@@ -44,13 +48,14 @@ type LFormProps<Type> = {
 
 function LForm<Type>({
   fields,
+  onRefine,
   buttonTexts,
   onSubmit,
   loading,
   initialValue = {} as Type,
   gridCols = 1,
 }: LFormProps<Type>) {
-  const schema = z.object(
+  const schemaObject = z.object(
     fields.reduce((acc, field) => {
       if (field.schema) {
         acc[field.id] = field.schema;
@@ -58,6 +63,10 @@ function LForm<Type>({
       return acc;
     }, {} as { [key: string]: z.ZodType<any, any, any> })
   );
+
+  const schema = onRefine
+    ? schemaObject.refine(onRefine.validate, onRefine.message)
+    : schemaObject;
 
   const defaultValues = fields.reduce((values, field) => {
     values[field.id] =

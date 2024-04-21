@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { FC } from "react";
+import { FC, Fragment } from "react";
 
 import {
   Breadcrumb,
@@ -30,16 +30,20 @@ const LBreadcrumb: FC<{ items?: LBreadcrumbItem[] }> = ({
     <Breadcrumb className="py-8">
       <BreadcrumbList>
         {items.map((item, index) => (
-          <>
+          <Fragment key={index}>
             {index === items.length - 1 ? (
-              <BreadcrumbPage>{item.label}</BreadcrumbPage>
+              <BreadcrumbPage key={`bc-page-${index}`}>
+                {item.label}
+              </BreadcrumbPage>
             ) : (
-              <BreadcrumbItem>
+              <BreadcrumbItem key={`bc-item-${index}`}>
                 <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
               </BreadcrumbItem>
             )}
-            {index < items.length - 1 && <BreadcrumbSeparator />}
-          </>
+            {index < items.length - 1 && (
+              <BreadcrumbSeparator key={`bc-separator-${index}`} />
+            )}
+          </Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>

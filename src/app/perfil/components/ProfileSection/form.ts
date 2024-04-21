@@ -3,7 +3,7 @@ import { z } from "zod";
 import { FormField } from "@/components/lp/LForm";
 import { User } from "@/types/user";
 
-export const getFormFields = (user: User): FormField[] => {
+export const getProfileFields = (user: User): FormField[] => {
   return [
     {
       type: "text",
@@ -33,4 +33,34 @@ export const getFormFields = (user: User): FormField[] => {
         .max(11, "O telefone deve conter 11 digitos"),
     },
   ];
+};
+
+export const passwordFields: FormField[] = [
+  {
+    type: "password",
+    label: "Senha atual",
+    id: "currentPassword",
+    defaultValue: "",
+    schema: z.string().min(1, "Informe sua senha antiga"),
+  },
+  {
+    type: "password",
+    label: "Nova senha",
+    id: "newPassword",
+    defaultValue: "",
+    schema: z.string().min(6, "Senha muito curta"),
+  },
+  {
+    type: "password",
+    label: "Confirmar nova senha",
+    id: "confirmPassword",
+    defaultValue: "",
+    schema: z.string().min(6, "Senha muito curta"),
+  },
+];
+
+export const passwordRefine = {
+  validate: (data: { [x: string]: any }) =>
+    data.newPassword === data.confirmPassword,
+  message: { message: "Senhas não conferem", path: ["confirmPassword"] },
 };
