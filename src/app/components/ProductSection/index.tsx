@@ -23,7 +23,10 @@ const ProductSection: FC<ProductSectionProps> = ({
       <div className="border-b-4 py-2 border-amber-800 flex w-fit">
         <h1 className="text-center text-4xl text-amber-800">{title}</h1>
       </div>
-      <div className="grid grid-cols-5 gap-8" style={{ rowGap: "40px" }}>
+      <div
+        className="grid grid-col-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl-grid-cols-5 gap-8"
+        style={{ rowGap: "40px" }}
+      >
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

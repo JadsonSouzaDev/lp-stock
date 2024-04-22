@@ -45,12 +45,15 @@ const ProducSearch: FC<ProducSearchProps> = ({ products, search }) => {
     <LPage breadcrumbItems={[{ label: search, href: `/?search=${search}` }]}>
       <section
         id="busca"
-        className="flex flex-col items-start justify-center gap-8"
+        className="flex flex-col items-start justify-center gap-8 px-2 md-px-4 lg-px-8"
       >
         <ProducSearchTitle products={products} search={search} />
         {products.length === 0 && <ProducSearchEmpty />}
 
-        <div className="grid grid-cols-5 gap-10" style={{ rowGap: "40px" }}>
+        <div
+          className="grid grid-col-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl-grid-cols-5 gap-10 w-full"
+          style={{ rowGap: "40px" }}
+        >
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

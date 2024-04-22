@@ -59,7 +59,7 @@ const AuthButton: FC = ({}) => {
   return (
     <Link href="/login" className="hover:text-amber-700">
       <div className="flex items-end justify-center gap-2 text-sm ml-3">
-        <User size={20} />
+        <User size={22} />
         <span className="uppercase mb-0 pb-0">Entrar</span>
       </div>
     </Link>

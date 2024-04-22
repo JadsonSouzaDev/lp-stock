@@ -27,7 +27,7 @@ const CategoryCard: FC<{ index: number; title: string }> = ({
   return (
     <Link
       href={`/?search=${title}`}
-      className={`w-[160px] h-[250px] ${colors[indexColor]} rounded-full flex items-center justify-center cursor-pointer`}
+      className={`w-[160px] h-[250px] mx-auto ${colors[indexColor]} rounded-full flex items-center justify-center cursor-pointer`}
     >
       <h1 className="text-white text-center text-2xl font-bold z-10 capitalize">
         {title}
@@ -43,10 +43,10 @@ const CategorySection: FC<{ categories: string[] }> = ({ categories }) => {
       id="categorias"
       className="flex items-center justify-center py-6 md:pt-20 gap-12 md:gap-16"
     >
-      <Carousel className="w-full">
-        <CarouselContent className="ml-20">
+      <Carousel className="w-full" opts={{ align: "center" }}>
+        <CarouselContent className="md:ml-20">
           {categories.map((category, index) => (
-            <CarouselItem key={category} className="-pl-20 basis-1/5">
+            <CarouselItem key={category} className="md:-pl-20   md:basis-1/5">
               <CategoryCard title={category} index={index} />
             </CarouselItem>
           ))}
