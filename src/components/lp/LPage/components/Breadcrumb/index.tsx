@@ -27,7 +27,7 @@ const LBreadcrumb: FC<{ items?: LBreadcrumbItem[] }> = ({
   const items = [...startItems, ...(endItems || [])];
 
   return (
-    <Breadcrumb className="px-2 py-8">
+    <Breadcrumb className="px-2 py-8 hidden md:flex">
       <BreadcrumbList>
         {items.map((item, index) => (
           <Fragment key={index}>

@@ -44,9 +44,12 @@ const CategorySection: FC<{ categories: string[] }> = ({ categories }) => {
       className="flex items-center justify-center py-6 md:pt-20 gap-12 md:gap-16"
     >
       <Carousel className="w-full" opts={{ align: "center" }}>
-        <CarouselContent className="md:ml-20">
+        <CarouselContent>
           {categories.map((category, index) => (
-            <CarouselItem key={category} className="md:-pl-20   md:basis-1/5">
+            <CarouselItem
+              key={category}
+              className="sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
+            >
               <CategoryCard title={category} index={index} />
             </CarouselItem>
           ))}

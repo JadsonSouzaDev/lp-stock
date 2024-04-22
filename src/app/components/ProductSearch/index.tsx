@@ -51,7 +51,7 @@ const ProducSearch: FC<ProducSearchProps> = ({ products, search }) => {
         {products.length === 0 && <ProducSearchEmpty />}
 
         <div
-          className="grid grid-col-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl-grid-cols-5 gap-10 w-full"
+          className="grid grid-col-1 sm:grid-cols-2 md:grid-cols-3 base:grid-cols-4 base-lg:grid-cols-5 gap-8 w-full"
           style={{ rowGap: "40px" }}
         >
           {products.map((product) => (

@@ -24,7 +24,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   return (
     <Card
       key={product.id}
-      className="w-full mx-auto max-w-[350px] md:w-[220px] lg:w-[210px] h-[415px] border-amber-800 border-opacity-25 rounded-2xl py-0 shadow-md"
+      className="w-full mx-auto max-w-[290px] md:w-[220px]  h-[415px] border-amber-800 border-opacity-25 rounded-2xl py-0 shadow-md"
     >
       <CardContent className="pt-4 pb-4 px-0">
         <div className="flex w-full h-[170px] relative">

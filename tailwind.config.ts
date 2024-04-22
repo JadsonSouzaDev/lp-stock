@@ -20,6 +20,10 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        base: "999px",
+        "base-lg": "1229px",
+      },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },

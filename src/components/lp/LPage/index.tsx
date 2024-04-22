@@ -14,7 +14,7 @@ const LPage: FC<
     <main className="flex flex-col min-h-screen w-full">
       <Navbar />
 
-      <div className="min-h-screen max-w-screen-xl w-full flex flex-col sm:px-4 md:px-8 xl:px-0 mx-auto py-16">
+      <div className="min-h-screen max-w-screen-xl w-full flex flex-col sm:px-4 md:px-8 xl:px-0 mx-auto py-20 md:py-16">
         {!hideBreadcrumb && <LBreadcrumb items={breadcrumbItems} />}
         {children}
       </div>
