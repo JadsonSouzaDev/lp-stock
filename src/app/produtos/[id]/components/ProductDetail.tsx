@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
 
 import { LPage } from "@/components/lp";
+import { addToBasket } from "@/components/lp/LPage/components/Navbar/components/Basket/service";
+import { BasketProduct } from "@/components/lp/LPage/components/Navbar/components/Basket/types";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { formatedCurrency } from "@/lib/currency";
@@ -23,6 +25,19 @@ const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
     return <></>;
   }
 
+  const add = () => {
+    const item = {
+      id: product.id,
+      name: product.name,
+      price: product.sale_price,
+      quantity,
+      image: product.url_image,
+      type: product.type,
+    } as BasketProduct;
+
+    addToBasket(item);
+  };
+
   return (
     <LPage
       breadcrumbItems={[
@@ -31,14 +46,14 @@ const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
         { label: product.name, href: `/produtos/${product.id}` },
       ]}
     >
-      <div className="flex flex-col pb-12 gap-8 px-4 md:px-0">
+      <div className="flex flex-col pb-12 gap-8 px-4 md:px-0 py-4 md:py-0">
         <div className="flex flex-col">
           <h1 className="text-3xl text-amber-800 font-bold">{product.name}</h1>
           <span>{product.author}</span>
           <span className="text-muted-foreground">{product.category}</span>
         </div>
         <div className="flex flex-col md:flex-row md:space-x-16">
-          <div className="flex w-full">
+          <div className="flex w-full mb-8 md:mb-0">
             <Image
               className="rounded-2xl mx-auto  md:ml-0"
               alt={product.name}
@@ -108,7 +123,10 @@ const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
               </div>
             </div>
 
-            <Button className="rounded-full bg-amber-800 hover:bg-amber-700">
+            <Button
+              className="rounded-full bg-amber-800 hover:bg-amber-700"
+              onClick={add}
+            >
               Adicionar a cesta
             </Button>
           </div>

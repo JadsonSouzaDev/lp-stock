@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart, Menu, Search, ShoppingBasket } from "lucide-react";
+import { Heart, Menu, Search, ShoppingBasket, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChangeEventHandler, FC, useEffect, useState } from "react";
@@ -10,10 +10,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import AuthButton from "./components/AuthButton";
+import Basket from "./components/Basket";
 
 const Navbar: FC = ({}) => {
   const searchParams = useSearchParams();
   const [showMenu, setShowMenu] = useState(false);
+  const [showBasket, setShowBasket] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -80,10 +82,10 @@ const Navbar: FC = ({}) => {
           <Button
             size="icon"
             variant="ghost"
-            className="hover:bg-transparent text-amber-800 hover:text-amber-800"
+            className="hover:bg-transparent text-amber-800 hover:text-amber-800 "
             onClick={() => setShowMenu((state) => !state)}
           >
-            <Menu size={30} />
+            {showMenu ? <X size={30} /> : <Menu size={30} />}
           </Button>
         </div>
 
@@ -101,12 +103,13 @@ const Navbar: FC = ({}) => {
               variant="ghost"
               className="hover:text-amber-700 hover:bg-transparent"
             >
-              <ShoppingBasket size={22} />
+              <ShoppingBasket size={22} onClick={() => setShowBasket(true)} />
             </Button>
             <AuthButton />
           </div>
         )}
       </div>
+      {showBasket && <Basket onClose={() => setShowBasket(false)} />}
     </nav>
   );
 };
