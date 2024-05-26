@@ -9,6 +9,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/:path((?!cadastrar).*)",
+        destination: "/cadastrar",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

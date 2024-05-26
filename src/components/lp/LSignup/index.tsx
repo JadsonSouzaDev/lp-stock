@@ -86,10 +86,10 @@ const LSignup: FC = () => {
   return (
     <Card className="w-full border-none shadow-none">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CardHeader className="p-0 md:p-6">
+        <CardHeader className="p-0 pb-4 md:p-6">
           <CardTitle className="flex flex-col items-center text-amber-800">
-            <Logo className="w-20 -mb-5 h-20" />
-            <LogoText className="w-24 h-24" />
+            <Logo className="w-10 md:w-20 md:-mb-5 h-14 md:h-20" />
+            <LogoText className="w-20 md:w-24 h-10 md:h-24" />
           </CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4 -mt-5 px-0 py-6 md:px-6">
@@ -119,11 +119,11 @@ const LSignup: FC = () => {
           </div>
           <div className="grid gap-2 min-w-full md:min-w-96">
             <Label className="text-muted-foreground" htmlFor="phone">
-              Whatsapp ou celular (apenas numeros)
+              Whatsapp ou celular (apenas números)
             </Label>
             <Input
               id="phone"
-              type="number"
+              type="tel"
               placeholder="Digite seu whatsapp ou celular"
               {...register("phone", { required: true })}
               error={errors.phone?.message?.toString()}
@@ -142,7 +142,7 @@ const LSignup: FC = () => {
             />
           </div>
         </CardContent>
-        <CardFooter className="pb-6">
+        <CardFooter className="pb-0 md:pb-5 pt-4 px-0 md:px-6">
           <Button
             disabled={loading}
             className="w-full bg-amber-800 hover:bg-amber-700"
